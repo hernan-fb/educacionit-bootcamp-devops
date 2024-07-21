@@ -1,0 +1,177 @@
+Rocio Facchiano -> Bootcamp Assistant
+
+Paula Romero --> Bootcamp Assistant
+
+Lorena Samer -> Academic Coordinator
+
+Paola Costantitni -> Academic Analyst SR
+
+
+-------------Modulo -1, Charla presentación-------------------
+
+Las bootcamps
+Son formaciones largas e intensivas. El ritmo de aprendizaje de todos no es el mismo, siempre pueden pasar cosas y ellas van a estar para ayudarnos a avanzar.
+
+En la primer clase ya va a estar el profe y el tutor para conocerlos.
+
+
+Clases on line en vivo. En zoom. Entre 30 o 40 minutos antes de cada clase, se recibe el link de acceso a zoom por mail, el link cambia clase a clase.
+
+Las clases quedan grabadas para aquel que no asistió y tmabién para los que quieran repasar.
+
+
+Learning by doing.
+
+Los profes irán desarrollando todos los contenidos, pero la idea de la bootcamp es desarrollar el contenido a través de la práctica.
+
+Mucho se va a enfocar en el aprendizaje colaborativo, si bien el profe enseña, se pide que los alumnos compartan sus experiencias dudas material, proactividad para resolver cualquier inconveniente.
+
+Por fuera abrá que desarrollar tiempo a las prácticas y surgirán dudas o inconvenientes. Preguntar al profe o a los compas, resolviendo los problemas por su cuenta.
+
+Es una propuesta compleja, porque abarca muchos ámbitos, no solamente con cuestiones duras de conocimientos, sino también el entrenamiento de las habilidades blandas muy requeridas en el mercado. En una entrevista laboral se marca la diferencia con las habilidades blandas.
+
+
+ASISTENCIA ACADEMICA:
+- Registros de presentes
+- Accesos a plataforma Alumni
+- Asistencia con soporte técnico
+- Seguimientos a lo largo de todo el bootcamp (esta pendiente si alguien no va a clase, para que no abandonen)
+
+mail de contacto: bootcamps@educacionit.com
+
+el área de bootcamps es aparte de los cursos, y tienen algunas particularidades, para tener respuesta rápida y certera es mejor comunicarse directamente con ellos.
+
+
+PLATAFORMA DISCORD:
+
+-Aprendizaje colaborativo.
+- Canal exclusivo del bootcamp.
+- Será el medio de comunicación oficial para dentro y fuera de la clase.
+
+https://discord.gg/8YKEaGFZ
+
+crear la cuenta con el mismo mail, si registramos con otro mail, el sistema no nos identifica como estudiantes. Por eso enviarles el mail con el que estoy registrado.
+
+
+Bienvenida: 
+- Empieza Aqui, para verificar la cuenta.
+- Una vez realizado, el nombre va a cambiar de color. sino va a estar el nombre en blanco.
+- Usar @ para etiquetar.
+
+PLATAFORMA ALUMNI:
+alumni.education
+
+usuario: mail de registro
+contraseña nro de documento
+
+Dentro de la sección mis cursos se ven los inscriptos.
+
+
+Se pueden ver las clases grabadas.
+
+Accede a las clases.
+
+Accedé al contenido.
+
+Como las clases serán mayormente prácticas, la idea es consumir el material fuera de clase. En algunos casos abrá videos, links.
+
+En devops se trabaja con links oficiales de google cloud, azure, etc.
+
+Una vez finalizando el curso se habilita la encuesta de fin.
+
+
+La opción de exámenes no está porque no tienen exámenes.
+
+Chatear con tus pares no está funcionando porque la idea es centralizar el uso de discord.
+
+
+DURANTE LA CLASE:
+
+Generar un entorno "presencial" acortar las distancias y generar un vínculo con ustedes, la idea es generar una interacción. Un ida y vuelta constante. Prender las cámaras, conocer quién está el otro lado.
+
+
+
+
+Dedicar 8hs semanales cursada incluida.
+
+Pair programming optativo.
+
+Desafíos semanales . 
+1º via github o google drive.
+2º dar aviso a través de un formulario
+nombre y apellido,
+nro actividad
+link drive / github
+
+
+trabajar preferentemente con un solo mail de gmail.
+
+
+alumni, discord, etc.
+
+
+
+a quién contactar por lo de los mails? cuáles son todas las plataformas en las 	que abrá un mail relacionado ?
+
+
+CAREER ADVISOR
+
+a partir de la clase 20 - 25 hay una clase de empleabilidad. El mismo día y horario con una experta de rrhh.
+
+Todo lo relacionado a cómo haceru n cv de alto impacto. Un github atractivo. Cómo prepararme para las entrevistas laborales.
+
+Esta fase es volunataria y opcional y se lo van a pasar a las empresas que tienen convenio de empleabilidad con educacion it.
+
+CERTIFICADOS
+
+
+hay 2.
+
+aprobacion 75%en vivo + proecto interador
+
+aval de Manhattan Collegue New York
+
+viaje junio 2025
+
+
+Quienes aprueben tienen una beca de desarrollo humano en:
+- Gestión de proyecto
+- Scrum
+- Liderazgo de equipos ágiles.
+
+
+FECHAS DE INICIO:
+
+- full stack: 18 06 ma vie 19 a 21h30
+	no tiene requisitos de conocimientos previos.
+	
+- dev ops: 		24 06, lu mie 19 a 21h
+	requisitos de conocimiento previo:
+	redes y linux.
+	
+
+
+El acceso a la página de alumni y discord, una vez finalizado el curso, se puede llegar a actualizar algo en contenidos
+
+Los canales se mantienen, en general no se cierra el acceso. Tanto discord como alumni.
+
+
+
+Cambio de mail al mail de bootcamps.
+bootcamps@educacionit.com
+
+alumni
+discord
+carpeta drive
+
+
+
+
+HTOP
+
+es otra herramienta que es como un top, pero con una mejor interfaz gráfica. No siempre va a estar. 
+
+Cuando creás una instancia en cualquier servicio cloud, y esa isntancia tiene ubuntu, no va a venir HTOP.
+
+
+
