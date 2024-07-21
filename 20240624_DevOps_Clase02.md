@@ -628,13 +628,3 @@ backup:
  http://overthewire.org/wargames/bandit/bandit0.html
  
  
- Podcast:
-
- Inglés: The DevOps Paradox
- Español: Enchiladas DevOps
-
- Youtube: 
-
- DevOpsToolkit
-
- Es de una de las personas que hace DevOps Paradox.

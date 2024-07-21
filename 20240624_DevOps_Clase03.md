@@ -1485,7 +1485,15 @@ Una vez que el sistema de archivos raíces está localizado y montado el `initra
 7. Init: El proceso init (o systemd en muchos sistemas modernos) se inicia, creando los procesos del usuario y iniciando los servicios del sistema.
 
 
+### Material extra brindado en la clase: 
 
+ - Podcast:
+    Inglés: The DevOps Paradox
+    Español: Enchiladas DevOps
+
+ - Youtube: 
+    DevOpsToolkit
+    Es de una de las personas que hace DevOps Paradox.
 
 
 
