@@ -1,4 +1,27 @@
 Modulo 02 - Clase 03
+### Resumen de comandos explicados en este archivo:
+#### Ver el tipo de sistema de archivos: 
+* file -sL /dev/sda1
+
+#### Mostrar inodos libres: 
+* df -i
+
+#### Mostrar espacio: 
+* df -h
+
+#### Mostrar listado de particiones, espacio ocupado y punto de montaje: 
+* df -h | grep '^/dev' | tr -s ' ' | cut -d' ' -f1,2,6
+
+#### Espacio total ocupado por una carpeta (ej. /etc): 
+* du -sch /etc
+
+#### Espacio total ocupado por distintos directorios: 
+* du -sch /*
+#### Espacio total ocupado por distintos directorios en distinta profundidad: 
+* du -h -max-depth=2 /home
+#### Traer los 10 archivos más grandes en el directorio actual: 
+* du -sm * | sort -nr | head
+
 
 ### Sistema de Archivos
 Un conjunto cualquiera de páginas apiladas no necesariamente es un libro. Otras características como los índices y los números de páginas son los que lo convierten en un libro. Con un sistema de archivos pasa algo parecido. Un montón de información apilada no hace a un sistema de archivos.
@@ -660,7 +683,7 @@ ejemplo: **_Ver el tipo de sistema de archivos_**
 ubuntu@foo:~$ sudo file -sL /dev/sda1
 /dev/sda1: Linux rev 1.0 ext4 filesystem data, UUID=7b1c29f0-7159-4456-9ca8-db40f35bc6ff, volume name "cloudimg-rootfs" (needs journal recovery) (extents) (64bit) (large files) (huge files)
 ```
-
+dice el tipo de sistema de archivos, el uuid, 
 ejemplo: **_Mostrar un listado de particiones, espacio ocupado y punto de montaje_**
 
 ```shell 
@@ -1401,6 +1424,73 @@ ubuntu@foo:~$ ls -li hola.txt
 294021 -rw-r--r-- 2 root root 28 Jul 21 11:00 hola.txt
 ```
 
-### Componentes secuencias de arranque
+### Componentes de la secuencia de arranque
+
+#### BIOS
+BIOS significa `Basic Input Output System`. Se trata de un firmware embebido en la placa madre encargado el hardware cuando se enciende la computadora y un proceso de diagnóstico llamado `POST (Power On Self Test)`. Su función principal es realizar la autocomprobación del hardware (POST - Power-On Self-Test) y preparar el sistema para cargar el sistema operativo.
+Después de la verificación, busca un dispositivo de arranque (como un disco duro o una unidad USB) y transfiere el control al bootloader (cargador de arranque) de esa unidad.
+Se encuentra almacenado en una memoria ROM (Read-Only Memory) o en una memoria flash.
+#### UEFI
+Las computadoras más nuevas cuentan con UEFI `Unified Extended Firmware Interface`, que es un reemplazo moderno del BIOS. Este proporciona una interfaz más avanzada y flexible entre el sistema operativo y el firmware de la computadora.
+Ofrece soporte para discos grandes (más de 2 TB), tiempos de arranque más rápidos, interfaces gráficas y más funcionalidades de seguridad.
+UEFI puede operar en modo de compatibilidad con BIOS, lo que significa que se puede usar para arrancar sistemas operativos diseñados para BIOS.
+
+ Las principales diferencias son:
+● UEFI proporciona una serie de estándares técnicos para una interfaz, en lugar de aplicarse a una única implementación de un firmware.
+● UEFI entiende los conceptos de “cargador de arranque”, particiones y sistemas operativos. 
+● UEFI es capaz de saltear GRUB y lanzar el kernel directamente (aunque este modo de uso no es habitual).
+● No se basa en un sector de arranque, definiendo en cambio un gestor de arranque como parte de la especificación UEFI. La configuración (que incluye rutas del sistema de archivos a cargadores y núcleos de sistemas operativos) está almacenada en memoria no volátil.
+
+#### El kernel
+El kernel es el núcleo del sistema operativo. Se trata de un programa que administra los recursos de hardware y los procesos del sistema.
+El kernel es la parte central del sistema operativo que se encarga de gestionar el hardware y proporcionar servicios esenciales al software.
+Incluye gestión de procesos, memoria, controladores de dispositivos, y administración del sistema de archivos. El kernel actúa como intermediario entre el software y el hardware.
+Tipos: Existen diferentes tipos de kernels, como kernels monolíticos, microkernels, y kernels híbridos.
+
+#### Initramfs
+Initramfs es un sistema de archivos temporal que se utiliza para el arranque del sistema durante el proceso de carga del kernel. Es una imagen inicial utilizada por el kernel para precargar los módulos de los dispositivos de bloques (tales como IDE, SCSI o RAID) que se necesitan para acceder al sistema de archivos raíz, montar el sistema de archivos raíz, e iniciar el sistema real. Esta operación se realiza en espacio de usuario.
+Proporciona los controladores necesarios y las herramientas para montar el sistema de archivos raíz (root filesystem) del sistema operativo. Contiene el entorno mínimo necesario para que el kernel pueda arrancar.
+Ubicación: Se almacena como una imagen comprimida y se descomprime en la memoria durante el inicio.
+
+#### MBR (Master Boot Record)
+MBR es un esquema de particionamiento y un área de arranque que se encuentra al comienzo de un disco duro.
+Funciones: Contiene la tabla de particiones del disco y un pequeño programa (bootloader) que se ejecuta al inicio y que carga el sistema operativo. Solo permite hasta 4 particiones primarias y es limitado a discos de hasta 2 TB.
+Limitaciones: En comparación con GPT (GUID Partition Table), MBR tiene límites en cuanto a tamaño y cantidad de particiones.
+
+#### Bootloader
+Definición: El bootloader es un programa que se encarga de cargar el sistema operativo en la memoria cuando se inicia la computadora.
+Funciones: Localiza el sistema operativo en el disco de arranque y lo carga en la memoria para su ejecución. Puede ofrecer un menú para seleccionar entre varios sistemas operativos instalados.
+Ejemplos: GRUB (Grand Unified Bootloader) y LILO (Linux Loader).
+
+#### GRUB (Grand Unified Bootloader)
+GRUB es un bootloader muy utilizado en sistemas Linux que permite la carga de múltiples sistemas operativos.
+Funciones: Soporta diferentes sistemas de archivos, permite seleccionar entre diferentes kernels y configuraciones, y puede mostrar un menú de inicio.
+Configuración: La configuración de GRUB se encuentra generalmente en /boot/grub/grub.cfg. Permite agregar o editar entradas para diferentes sistemas operativos o versiones del kernel.
+
+#### Secuencia de arranque
+La secuencia de arranque es el conjunto de operaciones, desde que iniciamos el equipo, hasta que inicia el primer proceso del sistema.
+Cuando iniciamos el equipo, se ejecuta el BIOS o UEFI. Dentro de las opciones de configuración de la BIOS/UEFI, podemos definir los dispositivos físicos de arranque del sistema (disco rígido, USB, CD-ROM, etc). 
+El dispositivo utilizado para el arranque debe tener instalado en el primer sector, conocido como `MBR (Master Boot Record)`, el código de arranque, la definición de la tabla de particiones y el código de comprobación.
+El código de arranque inicia el bootloader o cargador de arranque (GRUB en Linux), donde podemos elegir a través de un menú, el Sistema Operativo a iniciar.
+El sistema UEFI mantiene por compatibilidad el inicio de MBR. En caso de no utilizar el modo de compatibilidad intentará usar una partición GPT (Guid Partition Table) para cargar los archivos de inicio de los distintos sistemas operativos.
+Estos archivos tienen extensión `.EFI`. UEFI puede arrancar directamente su propio bootloader o bien usar GRUB. Este cargará el kernel. Luego montará (si es que existe) el `initramfs`. Continuará el inicio para detectar el tipo de CPU, el manejo de memoria, planificador de tareas, entradas y salidas, comunicación interprocesos, y demás sistemas de control.
+Una vez que el sistema de archivos raíces está localizado y montado el `initramfs` le cede el control al gestor del sistema de la máquina. Llegado este punto se ejecuta el primer proceso llamado `init` o `systemd` que es el encargado de iniciar los distintos servicios del sistema, realizar configuraciones y montar unidades entre otras cosas. También va a ser el responsable del apagado del sistema.
+##### Pasos típicos:
+1. Encendido: El usuario presiona el botón de encendido.
+2. POST: El BIOS/UEFI realiza la verificación inicial del hardware.
+3. Dispositivo de Arranque: Se determina el dispositivo de arranque (uso de MBR o UEFI).
+4. Bootloader: Se ejecuta el bootloader que carga el kernel.
+5. Kernel: El kernel se inicia y carga initramfs.
+6. Sistema de Archivos: Initramfs monta el sistema de archivos raíz.
+7. Init: El proceso init (o systemd en muchos sistemas modernos) se inicia, creando los procesos del usuario y iniciando los servicios del sistema.
+
+
+
+
+
+
+
+
+
 
 

@@ -74,15 +74,14 @@ tendrá un significado en especial.
 - Texto exacto: coincide con la secuencia literal. 
 \< \>: Exactamente lo que está entre \< \>. Ejemplo: \< palabra\>
 - Metacaracteres
-
-	- . : cualquier carácter único
-	- Posicionales: ^ y $ Inicio y fin de linea
-	- [] Clase de caracteres (ej [a-z] Identifica cualquier letra de la a a la z enminúscula, [0-9], 
-		[^abc] Identifica cualquier letra que no sea a, b o c en minúscula.
-		[^a-z] Identifica cualquier carácter que no sea de la a la z en minúscula.
-		. Este signo es un comodín para cualquier carácter, excepto nueva línea.
-	- | : Alternancia (OR)
-	- \ escapa metacaracteres
+	- **.** : cualquier carácter único
+	- Posicionales: **^** y **$** Inicio y fin de linea
+	- **[]** Clase de caracteres (ej [a-z] Identifica cualquier letra de la a a la z enminúscula, [0-9], 
+		**[^abc]** Identifica cualquier letra que no sea a, b o c en minúscula.
+		**[^a-z]** Identifica cualquier carácter que no sea de la a la z en minúscula.
+		**.** Este signo es un comodín para cualquier carácter, excepto nueva línea.
+	- **|** : Alternancia (OR)
+	- **\\** escapa metacaracteres
 	
 #### Clases de caracteres de la expresión regular POSIX
 
@@ -629,4 +628,13 @@ backup:
  http://overthewire.org/wargames/bandit/bandit0.html
  
  
- 
+ Podcast:
+
+ Inglés: The DevOps Paradox
+ Español: Enchiladas DevOps
+
+ Youtube: 
+
+ DevOpsToolkit
+
+ Es de una de las personas que hace DevOps Paradox.
