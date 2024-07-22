@@ -886,7 +886,7 @@ Solo debería ser usado para copiar sistemas de archivos desmontados, de solo le
 Podemos copiar los metadatos hacia un archivo:
 
 ```shell
-# xfs_metadump -g /dev/sdb6 prueba.img
+root@foo:/home/ubuntu# xfs_metadump -g /dev/sdb6 prueba.img
 Copied 347520 of 1141120 inodes (1 of 4 AGs)
 # ls -lh prueba.img
 -rw-r--r-- 1 root root 123M nov 24 23:22 prueba.img
@@ -895,7 +895,7 @@ Copied 347520 of 1141120 inodes (1 of 4 AGs)
 Uso el comando file para que reconozca el tipo de archivo:
 
 ```shell
-# file prueba.img
+root@foo:/home/ubuntu# file prueba.img
 rino: XFS filesystem metadump image
 ```
 #### xfs_db
@@ -903,7 +903,7 @@ rino: XFS filesystem metadump image
 Este programa sirve para hacer tareas de depuración y para obtener información de bajo nivel del sistema, por ejemplo:
 
 ```shell
-# xfs_db -r /dev/sdb6
+root@foo:/home/ubuntu# xfs_db -r /dev/sdb6
 xfs_db> frag
 actual 92517, ideal 91628, fragmentation factor 0,96%
 Note, this number is largely meaningless.
@@ -915,7 +915,7 @@ La opción -r es para operar en modo sólo lectura.
 #### xfs_fsr
 Esta herramienta sirve para reorganizar el sistema de archivos:
 ```shell
-# xfs_fsr /dev/sdb6
+root@foo:/home/ubuntu# xfs_fsr /dev/sdb6
 ```
 ### Herramientas avanzadas para ext2/ext3/ext4
 
@@ -1143,7 +1143,7 @@ tracefs /sys/kernel/debug/tracing tracefs rw,nosuid,nodev,noexec,relatime 0 0
 
 ##### Para montar una partición en un directorio
 ```shell
-# mount -t ext4 /dev/sdb6 /mnt
+root@foo:/home/ubuntu# mount -t ext4 /dev/sdb6 /mnt
 # mount |grep mnt
 /dev/sdb6 on /mnt type ext4 (rw,relatime)
 ```
@@ -1151,7 +1151,7 @@ tracefs /sys/kernel/debug/tracing tracefs rw,nosuid,nodev,noexec,relatime 0 0
 ##### montar el cdrom:
 
 ```shell
-# ls -l /dev/cdrom
+root@foo:/home/ubuntu# ls -l /dev/cdrom
 lrwxrwxrwx 1 root root 3 nov 25 00:47 /dev/cdrom -> sr0
 # mount -t iso9660 /dev/cdrom /media
 mount: dispositivo de bloques /dev/sr0 está protegido contra escritura; se monta como sólo lectura
@@ -1161,13 +1161,13 @@ mount: dispositivo de bloques /dev/sr0 está protegido contra escritura; se mont
 
 ##### De este modo podemos montar una partición o volumen lógico usando etiqueta:
 ```shell
-# mount -v -L SYSTEM
+root@foo:/home/ubuntu# mount -v -L SYSTEM
 mount: /dev/sda1 montado en /boot/efi.
 ```
 
 ##### De este modo podemos montar una partición o volumen lógico usando UUID:
 ```shell
-# mount -v -U B4A4-9276
+root@foo:/home/ubuntu# mount -v -U B4A4-9276
 mount: /dev/sda1 montado en /boot/efi.
 ```
 
