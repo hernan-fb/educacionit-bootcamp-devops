@@ -2,7 +2,7 @@
 
 #### Mecanismos de arranque
 
-Los 2 mecanismos principales de arranque en Linux son `SysVinit` y `systemD`, describiremos a estos dos con detalle a continuación.
+Los 2 mecanismos principales de arranque en Linux son `SysVinit` y `systemD`, describiremos a estos dos con detalle a continuación. Sea SysVinit o SystemD, vienen con la distribución de Linux que se esté instalando, y por tanto no pueden cambiarse en un sistema operativo dado.
 
 #### Pasos típicos de arranque:
 1. Encendido: El usuario presiona el botón de encendido.
@@ -13,13 +13,33 @@ Los 2 mecanismos principales de arranque en Linux son `SysVinit` y `systemD`, de
 6. Sistema de Archivos: Initramfs monta el sistema de archivos raíz.
 7. Init: El proceso init (o systemd en muchos sistemas modernos) se inicia, creando los procesos del usuario y iniciando los servicios del sistema.
 
+#### Resumen de comandos Init Manager
+
+##### Monitorización de Servicios SysVinit
+Utilizamos el comando `service`
+- service <nombre> status
+- service <nombre> start
+- service <nombre> stop
+
+
+
+##### Monitorización de Servicios SystemD
+Utilizamos el comando `systemctl`. No obstante SystemD tiene compatibilidad con SysVinit a nivel de comandos.
+- systemctl status <nombre>
+- systemctl start <nombre>
+- systemctl stop <nombre>
+
+
+
 
 ### SysVinit
 
 Muchos sistemas operativos UNIX usan este mecanismo, que fue por primera vez implementado en UNIX System III y posteriormente en UNIX System V.
 SysVinit es el sistema de inicio tradicional para muchas distribuciones de Linux. Se basa en un modelo de scripts que se encuentran en el directorio `/etc/rc.d/`, que se ejecutan en secuencia según el nivel de ejecución (runlevel) del sistema.
 Cada nivel de ejecución tiene un conjunto de scripts que se ejecutan al entrar o salir de dicho nivel.
-SysVinit no soporta la inicialización paralela de servicios de manera nativa; los procesos se inician de forma secuencial, lo que puede alargar el tiempo de arranque.
+SysVinit tiene una desventaja: que no soporta la inicialización paralela de servicios de manera nativa; los procesos se inician de forma secuencial, lo que puede alargar el tiempo de arranque.
+Sin embargo, una de sus ventajas es que al ser más viejo, es más simple y tiene mucha documentación. Está muy probado y por eso mismo "más seguro".
+
 
 #### Proceso de Arranque en SysVinit
 1. El kernel se carga y pasa el control al proceso `init`.
@@ -27,7 +47,7 @@ SysVinit no soporta la inicialización paralela de servicios de manera nativa; l
 3. Se ejecutan los scripts en el directorio correspondiente (`/etc/init.d/`) en el orden definido para ese nivel de ejecución.
 
 #### Proceso init
-El primer proceso se llama `init`, que arranca luego de la carga del kernel. Al ser el primer proceso en ejecutarse toma el PID 1. El init es un demonio (es decir, corre en segundo plano y sin una terminal que lo controle), el cual es el padre de todos los procesos iniciados durante el uso del sistema.
+El primer proceso se llama `init`, que arranca luego de la carga del kernel. **Al ser el primer proceso en ejecutarse toma el PID 1**. El init es un demonio (es decir, corre en segundo plano y sin una terminal que lo controle), el cual es el padre de todos los procesos iniciados durante el uso del sistema.
 Al iniciar el sistema tendrá un nivel de ejecución predeterminado (runlevel), en el que se definirán los distintos procesos a iniciar. Entre los niveles de ejecución se encuentran:
 ● La configuración principal del `init` es el archivo `/etc/inittab` en el que se define cuál es el nivel de ejecución predeterminado.
 ● Luego de leer la configuración, el init cargará los scripts que se encuentran dentro de `/etc/rc2.d` (en caso de que el runlevel fuera el 2) o `/etc/rc3.d` (en caso de que el runlevel fuera el 3)
@@ -362,11 +382,12 @@ Es un gestor de servicios alternativo a SysVinit. Se basa en la detección de ev
 Los servicios se llaman `jobs` y en lugar de usar scripts de shell, poseen archivos de configuración con la extensión `.conf` dentro del directorio `/etc/init.`.
 Este mecanismo fue creado por Ubuntu, pero el proyecto está actualmente descontinuado.
 
-### systemd
+### SystemD
 Es un sistema de inicialización más moderno que busca superar las limitaciones de SysVinit. Introduce un modelo basado en unidades (units), que pueden ser servicios, montajes de sistemas de archivos, dispositivos, etc.
-Inicia los servicios de manera paralela, lo que mejora considerablemente el tiempo de arranque del sistema.
+Su ventaja es que inicia los servicios de manera paralela, lo que mejora considerablemente el tiempo de arranque del sistema.
 Systemd permite manejar servicios y timers, junto con otras características avanzadas como sockets y targets (grupos de unidades).
-Diseñado para ser un reemplazo de SysVinit, y muchas distribuciones modernas de Linux (como Fedora, Ubuntu, Debian) han adoptado systemd como su sistema de inicialización por defecto.
+Diseñado para ser un reemplazo de SysVinit, y muchas distribuciones modernas de Linux (como Fedora, Ubuntu, Debian, CentOs) han adoptado SystemD como su sistema de inicialización por defecto.
+Algunas apps sin embargo usan solamente SysVinit.
 
 #### Unidades (Units)
 Los servicios se definen en archivos `.service` y pueden incluir dependencias, lo que permite a `systemd` saber qué necesita iniciar primero y qué puede esperar.
@@ -1461,18 +1482,41 @@ Este proyecto empezó en el 2004 cuando su autor principal Rainer Gerhards decid
 ### Herramientas de Logs
 
 #### Commando Logger
+El comando logger se usa para hacer entradas en el sistema de registro (syslog). Puedes escribir mensajes en el registro del sistema desde la línea de comandos. Es útil para generar logs desde scripts o aplicaciones.
+Con este comando podremos hacer llamadas a syslog(3) para que el sistema pueda escribir un log donde se le indique.
 Sintáxis:
 ```
 # logger [opciones] [ubicacion archivo] [Mensaje]
 
 ```
-Con este comando podremos hacer llamadas a syslog(3) para que el sistema pueda escribir un log donde se le indique.
 
     Opciones:
     -p   Prioridad (puede utilizarse servicio.prioridad).
     -t   Marca, agrega un texto para identificar el mensaje.
 
-Ejemplo:
+Ejemplos:
+
+    logger "Este es un mensaje de prueba"  
+
+Esto enviará el mensaje "Este es un mensaje de prueba" al sistema de logs, que por defecto suele estar en `/var/log/syslog` o `/var/log/messages`
+
+    logger -p local0.warn "Este es un mensaje de advertencia"
+
+Aquí estamos especificando que el mensaje tiene un nivel de advertencia (warn) y se envía al facil de registro local0.
+
+    #!/bin/bash  
+    logger "El script se ha iniciado"  
+    # operaciones del script  
+    logger "El script se ha completado"
+
+Aquí se está registrando mensajes desde un script:
+
+    logger -t mi_script "Este es un mensaje etiquetado"
+
+Usando la opción -t, puedes agregar una etiqueta al mensaje, lo que puede facilitar la identificación de su origen en los logs.
+
+Más ejemplos:
+
     # logger -p mail.info "Mensaje de prueba"
     # tail /var/log/mail.log
     Dec 9 22:43:35 debian evillarreal: Mensaje de prueba
@@ -1656,7 +1700,10 @@ En Debian se puede instalar desde los repositorios, luego se puede habilitar/des
 
 Erik Troan y Preston Brown son los autores de Logrotate, una utilidad para administrar las políticas de los logs de tu equipo.
 Logrotate es un estándar en sistemas RedHat y Debian. Con esta herramienta, podremos especificar todo tipo de parámetros a la hora de administrar nuestros logs.
+Logrotate es una herramienta diseñada para ayudar a manejar el ciclo de vida de los archivos de registro. Permite que los logs sean rotados, comprimidos, eliminados o enviados a otros lugares, ayudando a gestionar el tamaño de los archivos de log.
+
 Un archivo de configuración de Logrotate, consiste en una serie de especificaciones para los grupos de archivos de log que vamos a administrar.  Las opciones especificadas fuera de cada contexto de un log concreto, (errors, rotate, weekly…) se aplican a todos ellos, pero pueden ser reemplazadas con una especificación concreta para un log en particular.
+
 En nuestro sistema, la utilización de logs es algo imprescindible y es por eso que éstos crecen constantemente y hay que tener alguna utilidad para especificar el comportamiento.
 El directorio de configuración global se encuentra en `/etc/logrotate.conf`; sino, también, tenemos otro directorio en `/etc/logrotate.d/`, donde podremos poner individualmente cada configuración.
 Para que cada una de las configuraciones tenga efecto, se programa una entrada en el crontab del sistema, para que corran cada determinado tiempo (`/etc/crond.daily/logrotate`).
@@ -1665,6 +1712,11 @@ Para que cada una de las configuraciones tenga efecto, se programa una entrada e
     -d      Se utiliza para debug no hace nada, simula la rotación.
     -f      Fuerza la rotación
     -v      Nos da más información.
+
+
+
+
+
 
 Ejemplo
 ```shell
@@ -1699,26 +1751,7 @@ considering log /var/log/apt/term.log
 El directorio `/etc/logrotate.d` es un lugar estándar para los archivos de configuración de Logrotate.
 Todos los paquetes software conscientes de logrotate (la gran mayoría) se integran con este sistema de administración de logs en la parte de su proceso de instalación, lo que simplifica ampliamente la administración.
 
-Ejemplo
-```shell
-root@foo:/home/ubuntu# ls /etc/logrotate.d
-apache2         cups        lighttpd        ppp
-apt             dirmngr     monit           vsftpd
-aptitude        dpkg        mysql-server    rsyslog
-```
-
-Configuración de Ejemplo
-```shell
-root@foo:/home/ubuntu# cat /etc/logrotate.d/vsftpd
-/var/log/vsftpd.log
-{
-    create 640 root adm
-    missingok
-    notifempty
-    rotate 4
-    weekly
-}
-```
+##### Archivos de configuración de LogRotate
 
     Opciones
     missingok               No se producirá ningún error si el archivo de log no existe.
@@ -1732,11 +1765,154 @@ root@foo:/home/ubuntu# cat /etc/logrotate.d/vsftpd
     monthly                 Rotar mensualmente.
     yearly                  Rotar anualmente.
 
-Lo que no esté definido se tomará del archivo de configuración global `/etc/logrotate.conf`.
+Lo que no esté definido dentro de la carpeta `/etc/logrotate.d` se tomará del archivo de configuración global `/etc/logrotate.conf`.
+
+* Configuración básica en `/etc/logrotate.conf`:
+```shell
+/var/log/syslog {  
+    weekly                 # Rotar semanalmente  
+    rotate 4              # Mantener 4 archivos de log rotados  
+    compress             # Comprimir los archivos rotados  
+    delaycompress         # Comprimir los archivos rotados en la próxima rotación  
+    missingok             # No mostrar error si el log no existe  
+    notifempty            # No rotar si el archivo de log está vacío  
+}  
+```
+
+* Ejemplo de archivo de configuración en `/etc/logrotate.d/mi_aplicacion`:
+```shell
+/var/log/mi_aplicacion.log {  
+    daily                 # Rotar diariamente  
+    rotate 7              # Mantener 7 archivos de log rotados  
+    compress             # Comprimir los archivos rotados  
+    missingok             # No mostrar error si el log no existe  
+    notifempty            # No rotar si el archivo de log está vacío  
+    create 0640 usuario grupo  # Crear un nuevo archivo de log después de la rotación  
+}  
+```
+##### Comando `logrotate -f /etc/logrotate.conf  ` para ejecutar logrotate manualmente:
+Si deseas ejecutar logrotate manualmente para probar la configuración, puedes usar el siguiente comando:
+
+`logrotate -f /etc/logrotate.conf  `
+La opción -f fuerza la rotación, sin importar si es necesario o no.
+
+Ejemplo
+```shell
+root@foo:/home/ubuntu# ls /etc/logrotate.d
+apache2         cups        lighttpd        ppp
+apt             dirmngr     monit           vsftpd
+aptitude        dpkg        mysql-server    rsyslog
+```
+
+* Configuración de Ejemplo `logrotate.d`
+```shell
+root@foo:/home/ubuntu# cat /etc/logrotate.d/vsftpd
+/var/log/vsftpd.log
+{
+    create 640 root adm
+    missingok
+    notifempty
+    rotate 4
+    weekly
+}
+```
+
+### Extra de la clase
+
+* Loc-os, "la distro del pueblo" distribución linux para computadoras con bajos recursos. De uruguay.
+
+* tarea: https://sadservers.com/scenarios
+* Más tarea: https://codewars.com
+
+#### Diferencia entre PS y SystemD (comando systemctl)
+
+* **`ps -aux`**
+El comando ps (process status) se utiliza para mostrar información sobre los procesos que están en ejecución en el sistema. La opción -aux es una combinación que requiere ciertas interpretaciones:
+**a:** Muestra procesos de todos los usuarios.
+**u:** Muestra información adicional sobre los procesos como el usuario, el uso de CPU y memoria, etc.
+**x:** Muestra procesos que no están controlados por una terminal.
+Cuando ejecutas ps -aux, obtienes una lista detallada de todos los procesos en el sistema, independientemente de si están activos en segundo plano o si son parte de un servicio gestionado por un gestor de servicios como SystemD. La salida incluye información como:
+**PID:** ID del proceso.
+**USER:** Usuario que ejecuta el proceso.
+**%CPU:** Porcentaje de CPU que está utilizando el proceso.
+**%MEM:** Porcentaje de memoria que está utilizando el proceso.
+**VSZ:** Tamaño virtual del proceso.
+**RSS:** Tamaño de la memoria residente.
+**TTY:** Terminal asociada (si corresponde).
+**STAT:** Estado del proceso.
+**START:** Hora de inicio.
+**TIME:** Tiempo de CPU usado.
+**COMMAND:** Comando que se usó para iniciar el proceso.
+
+* **`systemctl list-units --type=service`**
+Por otro lado, el comando `systemctl list-units --type=service` muestra información sobre los servicios gestionados por SystemD. SystemD es el sistema de inicialización y gestor de servicios más utilizado en las distribuciones de Linux modernas. Al ejecutar este comando, obtienes información específica sobre los servicios habilitados y sus estados, incluyendo:
+**UNIT:** Nombre del servicio.
+**LOAD:** Indica si la unidad se ha cargado correctamente.
+**ACTIVE:** Estado de la unidad (active, inactive, failed, etc.).
+**SUB:** Estado más detallado del servicio (running, exited, etc.).
+**DESCRIPTION:** Descripción del servicio.
+
+* Diferencias clave
+    - Tipo de información:
+    **ps** muestra información sobre todos los procesos en ejecución, que incluye tanto servicios (que pueden ser gestionados por SystemD) como procesos independientes que no forman parte de un servicio.
+    **systemctl** se centra únicamente en los servicios gestionados por SystemD, proporcionando información sobre su estado y configuración.
+* Enfoque en la gestión:
+    - ps es una herramienta para monitorear el estado de los procesos en general, útil para la depuración o para verificar qué programas están en ejecución.
+    - systemctl es una herramienta para gestionar y controlar servicios. Puedes iniciar, detener, habilitar o deshabilitar servicios, así como verificar su estado.
+* Nivel de detalle:
+    - La salida de ps es más detallada en términos de uso de recursos por proceso (CPU, memoria, etc.).
+    - La salida de systemctl es más detallada en términos de estado operacional de los servicios.
+* Ejemplo de uso:
+    - Si usas ps -aux, podrías ver todos los procesos en el sistema, sean o no servidos por SystemD. Por ejemplo, verás procesos de programas de escritorio, terminales, etc.
+    - Si usas systemctl list-units --type=service, verás solo los servicios que SystemD está gestionando, como el servicio de red, servicios de base de datos, servidores web, etc.
+* Cómo detener un servicio
+    - Si un servicio está gestionado por SystemD y deseas detenerlo, debes usar el comando systemctl. Por ejemplo: `sudo systemctl stop nombre-del-servicio`  
+    Donde nombre-del-servicio es el nombre del servicio que deseas detener (como nginx, apache2, etc.).
+    - Sin embargo, puedes usar `ps -aux` para identificar el PID (ID del proceso) del servicio o proceso en ejecución. Si por alguna razón no tienes acceso a systemctl o si el servicio no es gestionado por SystemD, podrías detener un proceso utilizando el comando kill con el PID. Por ejemplo: `kill PID`, donde PID es el número del ID del proceso que deseas detener.
+    Si el proceso no se detiene con el comando kill, puedes usar una señal más fuerte con: `kill -9 PID ` 
+    Ten mucho cuidado al usar kill -9, ya que forzar el cierre de un proceso puede llevar a la pérdida de datos no guardados o a la corrupción del estado del programa. Siempre es mejor intentar detener el servicio o proceso de manera ordenada.
+
+#### Diferencia entre Proceso y Servicio
+
+La diferencia entre procesos y servicios es fundamental en la administración de sistemas y en la comprensión de cómo funcionan las aplicaciones en un sistema operativo. 
+
+* **`Procesos`**
+Definición: `Un proceso es una instancia en ejecución de un programa`. Cada vez que se inicia un programa (como un navegador web, una terminal, un servidor web, etc.), se crea un proceso que se ejecuta en tu sistema. Los procesos son capaces de realizar tareas, manejar entradas de usuario y comunicarse con servidores externos. Tienen su propio espacio de memoria y recursos, como el tiempo de CPU y uso de memoria.
+* **`Servicios`**
+Definición: `Un servicio es un tipo especial de proceso diseñado para funcionar en segundo plano y prestar un servicio específico generalmente relacionado con la red o con otras funciones del sistema`. Los servicios suelen ser gestionados por un gestor de servicios (como SystemD) y pueden iniciarse automáticamente al arrancar el sistema.
+Ejemplo: Un servicio como httpd o nginx (servidor web) funciona en segundo plano para manejar solicitudes HTTP. Este servicio está diseñado para aceptar conexiones de red, manejar solicitudes de usuarios y devolver respuestas apropiadas.
+* *Diferencias Clave*
+    - Contexto de Ejecución:
+    `Proceso`: Puede ser cualquier programa en ejecución, independientemente de si interactúa con otros sistemas o si se ejecuta en segundo plano.
+    `Servicio`: Generalmente, se ejecuta en segundo plano y está diseñado para funcionar sin necesidad de interacción directa del usuario. Su propósito es manejar solicitudes de otros programas o usuarios a través de la red o realizar tareas de fondo.
+    - Gestión:
+    `Proceso`: No necesariamente está gestionado por un gestor de servicios. Puede ser iniciado por el usuario o por otro proceso.
+    `Servicio`: Es gestionado por un gestor de servicios (por ejemplo, SystemD) y tiene un ciclo de vida controlado (inicio, detención, reinicio, etc.).
+    - Ejemplos en los que ambos pueden referirse a la misma cosa:
+    `Servidor Web`: Cuando inicias un servicio de servidor web (como Apache o Nginx), este servicio se convierte en un proceso que escucha solicitudes en puertos específicos.
+    `Base de Datos`: Un servicio de base de datos (como MySQL o PostgreSQL) se ejecuta como un proceso que proporciona acceso a las aplicaciones a través de consultas. Aquí, el servicio y el proceso son equivalentes en el contexto de que el servicio sirve como una instancia de un proceso que gestiona las solicitudes de bases de datos.
+
+En resumen, `todos los servicios son procesos, pero no todos los procesos son servicios`. La distinción radica en cómo están diseñados para operar y cómo son gestionados por el sistema operativo.
 
 
-
-
-
+#### Directorios importantes para trabajar en linux
+Hay 3 directorios importantes para trabajar en linux con hardware, dado que en linux todo es un archivo.
+* **`/dev`**
+Representa distintos dispositivos (device files) que pueden ser tanto hardware como dispositivos del sistema (i/o, cdroms).
+    - Block Devices (`/dev/sda`, `/dev/sdb`, etc). 
+    - Character Devices (`/dev/tty`, `/dev/pts`, `/dev/mouse`). (periféricos)
+    - Virtual Devices (`/dev/null`, `/dev/zero`) (no necesariamente representan hardware físico, sino disintas utilidades del kernel. Por ejemplo sirven para probar cosas, para llenar archivos de zeros, )
+* **`/proc`**
+Proporciona información sobre los procesos en ejecución y otros datos del sistema en forma de archivos y directorios virtuales. Son datos del sistema virtuales que son proporcionados por el kernel.
+    - Información de procesos `/proc/12`, `/proc/13`, etc...  (una carpeta por cada PID de cada proceso que se está corriendo)
+    - Información del sistema: `/proc/cpuinfo`, `/proc/meminfo`, etc. 
+    ej cat /proc/uptime (tiempo en ejecucion en segundos) = comando uptime
+    ej free = cat /proc/free
+    todos esos comandos interactuan con estos archivos.
+* **`/sys`**
+Contiene información y configuraciones del sistema y del kernel, permitiendo la interacción con el hardware y los módulos del kernel. Es similar a /proc, pero se centra en la configuración del hardware y la interacción con los módulos del kernel.
+    - Información de Dispositivos: `/sys/bus/pci/devices/...`
+    - Configuración del sistema: `/sys/devices/system/cpu/cpu0/cpu_capacity` -> muestra la capacidad del cpu. Una manera de mostrar cómo el hardware se relaciona con el kernel.
+Muestra información del sistema y distintas configuraciones del kernel.
 
 

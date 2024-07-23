@@ -22,6 +22,22 @@ Modulo 02 - Clase 03
 #### Traer los 10 archivos más grandes en el directorio actual: 
 * du -sm * | sort -nr | head
 
+#### sudo find / -printf '%h\n' | sort | uniq -c | sort -nr | head
+  1. find /:
+find / significa que comenzará a buscar desde la raíz del sistema de archivos (/), lo que implica que buscara en todo el sistema.
+  2. -printf '%h\n':
+-printf es una opción de find que permite formatear la salida.
+`'%h\n'` significa que queremos imprimir el directorio que contiene cada archivo o directorio encontrado.
+`%h` representa el directorio padre del archivo encontrado (el nombre del directorio).
+`\n` es un salto de línea, lo que asegura que cada directorio se imprima en una línea separada.
+3. sort:
+sort ordena las líneas de texto en orden alfabético. Así, todos los nombres de directorios se ordenarán.
+4. uniq -c:
+uniq elimina líneas duplicadas consecutivas, pero en este caso, dado que las líneas fueron ordenadas anteriormente, todas las duplicadas serán contiguas.
+La opción -c cuenta cuántas veces aparece cada línea (en este caso, cada directorio) y muestra esa cuenta junto con el nombre del directorio.
+5. sort -nr:
+La opción -n indica que se debe realizar una comparación numérica (en lugar de lexicográfica) y -r indica que debe ordenarse en orden inverso (de mayor a menor).
+Esto significa que los directorios que tienen mayor cantidad de archivos aparecerán primero en la salida.
 
 ### Sistema de Archivos
 Un conjunto cualquiera de páginas apiladas no necesariamente es un libro. Otras características como los índices y los números de páginas son los que lo convierten en un libro. Con un sistema de archivos pasa algo parecido. Un montón de información apilada no hace a un sistema de archivos.
@@ -110,7 +126,7 @@ Graphic Inc. y se agregó al kernel Linux en la
 versión 2.4. 
 ● Alta escalabilidad, es capaz de crear particiones de unos 109 GB.
 ● Uso eficiente del espacio.
-● Sistema transaccional de alto rendimiento.
+● Sistema transaccional de alto rendimiento, motivo que lo hace popular y utilizado para operaciones de entrada/salida intensivas, y lo hace ideal para bases de datos y sistemas de big data.
 ● Rápida recuperación.
 ● Capacidad para establecer límite de ocupación 
 por directorios.
