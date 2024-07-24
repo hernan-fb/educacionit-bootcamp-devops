@@ -39,6 +39,26 @@ La opción -c cuenta cuántas veces aparece cada línea (en este caso, cada dire
 La opción -n indica que se debe realizar una comparación numérica (en lugar de lexicográfica) y -r indica que debe ordenarse en orden inverso (de mayor a menor).
 Esto significa que los directorios que tienen mayor cantidad de archivos aparecerán primero en la salida.
 
+#### Comando ls -l
+La salida del comando ls -l comienza con una serie de caracteres que indican el tipo de archivo. 
+1. El primer carácter de esta cadena representa el tipo de archivo. Aquí están los más comunes:
+  **-:** Indica un archivo regular (es decir, un archivo normal de datos, texto, etc.).
+  **d:** Indica un directorio.
+  **b:** Indica un dispositivo de bloque (block device). Los dispositivos de bloque, como discos duros y sistemas de archivos, son aquellos que pueden manejar bloques de datos y permiten acceso aleatorio. Por eso, están etiquetados con la letra b.
+  **c:** Indica un dispositivo de carácter (character device). Los dispositivos de carácter, que manejan flujos de datos secuenciales, como terminales o dispositivos serie, están etiquetados con la letra c.
+  **l:** Indica un enlace simbólico (symlink).
+  **s:** Indica un socket.
+  **p:** Indica un FIFO (named pipe).
+2. Siguientes Nueve Caracteres (Permisos):
+Estos caracteres se dividen en tres grupos de tres, que representan los permisos para el propietario, el grupo y otros.
+    * Primer grupo (Propietario):
+      **r:** Permiso de lectura.
+      **w:** Permiso de escritura.
+      **x:** Permiso de ejecución.
+      **-:** Sin permiso (es decir, no tiene ese permiso específico).
+    * Segundo grupo (Grupo) y Tercer grupo (Otros):
+      Similar al primer grupo, y muestra lo mismo que los permisos del propietario.
+
 ### Sistema de Archivos
 Un conjunto cualquiera de páginas apiladas no necesariamente es un libro. Otras características como los índices y los números de páginas son los que lo convierten en un libro. Con un sistema de archivos pasa algo parecido. Un montón de información apilada no hace a un sistema de archivos.
 
