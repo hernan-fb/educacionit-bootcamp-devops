@@ -1,10 +1,616 @@
 
+### Comando `Which` y `alias`
+#### Comando `which`
+El comando `which` se utiliza para locar la ruta completa del ejecutable de un comando en el sistema. Es útil para saber qué versión de un programa se está ejecutando, especialmente si hay múltiples versiones instaladas en diferentes ubicaciones.
+
+Ejemplos de uso de `which`:
+
+- Encontrar la ruta de un comando:
+```bash
+which python  
+Salida posible:
+/usr/bin/python  
+```
+- Encontrar la ruta de un comando que no está instalado:
+
+```bash
+which nonexistentcommand  
+Salida:
+nonexistentcommand not found  
+```
+
+- Encontrar la ruta de múltiples comandos:
+
+```bash
+which git node npm  
+Salida posible:
+
+/usr/bin/git  
+/usr/bin/node  
+/usr/bin/npm  
+```
+
+#### Comando `alias`
+El comando `alias` se utiliza para crear un atajo o un nombre corto para un comando o una secuencia de comandos más largos. Esto te permite ejecutar tareas comunes más rápidamente.
+Ejemplos de uso de `alias`:
+
+- Crear un `alias` simple:
+```bash
+alias ll='ls -la'  
+```
+Esto significa que cuando escribas ll, estarás ejecutando ls -la.
+
+- Ver los alias existentes:
+```bash
+alias  
+```
+Esto listará todos los alias que tienes configurados.
+
+- Eliminar un alias:
+```bash
+unalias ll  
+```
+Esto eliminará el alias ll que creaste anteriormente.
+
+- Crear un alias con comandos múltiples:
+```bash
+alias update='sudo apt update && sudo apt upgrade'  
+```
+Ahora, cada vez que escribas update, se ejecutarán ambos comandos.
+
+---
+
+### Vim
+Vim es un editor de texto modal, altamente configurable, usado comúnmente en entornos Unix/Linux.
+Fortalezas:
+● Eficacia y rapidez
+● Configurabilidad
+● Portabilidad
+● Ligereza
+● Extensibilidad
+● Comunidad Activa
+Vim es Vi Improved, una versión mejorada de Vi.
+
+#### Modos de Vim
+##### Modos Principales:
+* `Normal`: Navegar y ejecutar comandos
+* `Insert`: Editar texto
+* `Visual`: Seleccionar texto
+* `Command`: Ejecutar comandos específicos
+
+##### Cambio de Modos:
+* `‘Esc’`: Salir a Normal
+* `‘i’` o `‘a’`: Para Insert
+* `‘v’`: Para Visual
+* `‘:’`: Para Command
+
+#### Navegación Básica
+##### Movimiento:
+* `‘h’`: Izquierda
+* `‘j’`: Abajo
+* `‘k’`: Arriba
+* `‘l’`: Derecha
+##### Búsqueda:
+* `‘/texto’`: Buscar hacia adelante
+* `‘?texto’`: Buscar hacia atrás
+
+#### Edición de Texto
+##### Comandos de Insert:
+* `‘i’`: Insertar antes del cursor
+* `‘a’`: Insertar después del cursor
+* `‘o’`: Nueva línea debajo
+* `‘O’`: Nueva línea arriba
+##### Borrar texto:
+* `‘x’`: Borrar carácter bajo el cursor
+* `‘dw’`: Borrar palabra
+* `‘dd’`: Borrar línea
+##### Comandos de Deshacer:
+* `‘u’`: Normal
+* `‘:undo’`: Comando
+##### Comandos de Rehacer:
+* `‘Ctrl + r’`: Normal
+* `‘:redo’`: Comando
+
+#### Uso del Modo Visual
+##### Selección de Texto:
+* `‘v’`: Visual
+* `‘V’`: Visual línea
+* `‘Ctrl’ + ‘v’`: Visual bloque
+##### Acciones en Texto Seleccionado:
+* `‘d’`: Borrar
+* `‘y’`: Copiar
+* `‘p’`: Pegar
+
+#### Modo Command
+##### Comandos para el Guardado y para Salir:
+* `‘:w’`: Guardar
+* `‘:q’`: Salir
+* `‘:wq o :x’`: Guardar y salir
+* `‘:q!’`: Salir sin guardar
+##### Comandos Variados:
+* `‘:e nombre_archivo’`: Abrir un archivo
+* `‘:s/viejo/nuevo/g’`: Reemplazar en la línea actual
+* `‘:%s/viejo/nuevo/g’`: Reemplazar en todo el archivo
+* `‘:!comando’`: Ejecutar comando en nuestra shell desde Vim
+* `‘:set number’`: Mostrar números de linea
+
+#### Archivo `.vimrc`
+El archivo .vimrc se utiliza para personalizar Vim según tus preferencias, a continuación configuraciones posibles a poner en dicho archivo.
+
+##### Mostrar números de línea
+`set number`
+
+##### Resaltar la línea actual
+`set cursorline`
+
+##### Habilitar el modo compatible con el mouse
+`set mouser=a`
+
+##### Ignorar mayúsculas en la búsqueda
+`set ignorecase`
+`set smartcase`
+
+##### Activar el portapapeles del sistema
+`set clipboard=unnamedplus`
+
+---
+
+### Bash Scripting
+Bash es básicamente una versión mejorada de .sh scripting.
+Bash (Bourne Again Shell) es un intérpreta de comandos para Unix/Linux. Permite ejecutar comandos, automatizar tareas y escribir scripts, gestionar sistemas, procesar archivos.
+Sus usos comunes suelen ser la automatización de tareas repetitivas, gestión de sistemas y el procesamiento de archivos.
+Una buena práctica es poner la extensión .sh a los scripts de bash.
+Para ejecutar el archivo creado hay que cambiarlo y hacerlo ejecutable con `chmod +x archivo.sh` y luego ejecutarlo `./archivo.sh`.
+
+#### Elementos de un script
+##### Shebang:
+`#!/bin/bash`: Indica al sistema que interprete usar. En este caso, bash. Se escribe en la primera linea de un script bash.
+##### Comentarios:
+`‘#’`: Usamos el carácter ‘#’ para agregar comentarios a nuestro codigo.
+##### Declaración de Variables:
+`‘[NOMBRE]=[VALOR]’`: 
+Ejemplo: 
+`num1=10`
+##### Uso de Variables:
+`‘ echo “El primer número es igual a $num1” ’`
+
+##### Leer Input del Usuario
+`‘read’`: Usamos la keyword `‘read’` para leer input del usuario. Ejemplo:
+```bash
+#!/bin/bash
+echo "Introduce tu nombre:"
+read NOMBRE
+echo "Hola, $NOMBRE"
+```
+#### Corchetes en Bash
+En Bash, los corchetes se utilizan para evaluar condiciones en estructuras de control como if, while, y until. Existen tres formas principales de corchetes que se utilizan con diferentes propósitos:
+
+1. Corchetes simples (`[]`)
+**Denominación:** Este es conocido como el comando test.
+**Uso:** 
+- Se utiliza para evaluar expresiones condicionales, como comparaciones de cadenas, números, y comprobaciones de archivos.
+- Es necesario colocar espacios antes y después de los corchetes. No hacerlo provocará un error de sintaxis. 
+- Se pueden usar operadores como `-eq`, `-ne`, `-lt`, `-gt`, `=`, `!=`, etc.
+**Ejemplo:**
+```bash
+if [ -e "archivo.txt" ]; then  
+    echo "El archivo existe."  
+fi
+```  
+
+2. Doble corchete (`[[ ]]`)
+**Denominación:** Este es un comando de evaluación condicional mejorado en Bash.
+**Uso:** 
+- Proporciona más funcionalidad y es más seguro que los corchetes simples. Permite operaciones más complejas y evita la necesidad de escapar caracteres como >, <, y &&.
+- se requiere que haya espacios antes y después de los corchetes dobles. Si no se incluyen los espacios, también se producirá un error de sintaxis
+- 
+**Ejemplo:**
+```bash
+if [[ "$a" == "texto" ]]; then  
+    echo "La variable es igual a 'texto'."  
+fi
+```
+Características:
+Permite más opciones de comparación de cadenas (p.ej., `==`, `!=`).
+Permite el uso de operadores lógicos directamente (`&&`, `||`) sin necesidad de usar `-a` o `-o`.
+Es útil para realizar comparaciones de cadenas y patrones más avanzadas.
+3. Corchetes de llave ({})
+Denominación: Este tipo se utiliza para agrupamientos o expansión de variables.
+Uso: Se utilizan para agrupar comandos y en la expansión de secuencias y conjuntos. También se utilizan en bucles y funciones.
+Ejemplo:
+for i in {1..5}; do  
+    echo "Número: $i"  
+done  
+Características:
+Permiten la expansión de secuencias y conjuntos.
+Son útiles en scripts para definir bloque de tareas o funciones.
+Resumen de Usos
+[]: Comando test para comparaciones básicas y pruebas de condición.
+[[ ]]: Evaluación de condiciones más robusta y flexible, ideal para Bash.
+{}: Agrupaciones y expansiones de secuencias; también se usa para definir funciones o agrupar comandos.
+
+
+#### Sintaxis en Bash Scripting
+En Bash, la sintaxis tiene ciertas reglas sobre el uso de espacios que son importantes para la correcta interpretación de los comandos. Aquí te explico cuándo no deben usarse espacios y dónde sí:
+
+1. Espacios en asignación de variables
+Al asignar un valor a una variable, no debes incluir espacios alrededor del signo igual (=). Por ejemplo:
+```bash
+resultado=5  # Correcto  
+resultado = 5  # Incorrecto, esto no funcionará  
+```
+Si colocas espacios, Bash intentará interpretar la línea como si estuvieras intentando ejecutar un comando llamado resultado con argumentos = y 5, lo que no tiene sentido.
+
+2. Expresiones aritméticas
+Los paréntesis dobles $((...)) se utilizan para indicar que lo que está dentro de ellos es una expresión aritmética. Esto permite a Bash interpretar correctamente la operación de suma. Sin los paréntesis, Bash no interpretaría num1 + num2 como una operación matemática, sino que trataría de leerlo como una simple cadena de texto.
+En cuanto a la sintaxis, cuando usas la sintaxis de expresiones aritméticas, como $(( ... )), no necesitas espacios entre las variables y el operador, pero los puedes usar dentro de las expresiones si lo deseas. Por ejemplo, se puede usar:
+```bash
+resultado=$((num1 + num2))  # Correcto  
+resultado=$(( num1 + num2 ))  # También correcto, pero no es necesario  
+resultado=$((num1 + num2 ))  # Correcto, con espacio solo al final  
+resultado=$(( num1 + num2 ))  # Correcto, pero no es necesario tener espacios  
+```
+No obstante, los espacios alrededor de los operadores dentro de las expresiones aritméticas son opcionales.
+
+3. Comandos y parámetros
+En general, para la ejecución de comandos y la transmisión de parámetros, sí debes usar espacios. Por ejemplo:
+```bash
+echo "Hola mundo"  # Correcto, hay un espacio después de 'echo'  
+```
+4. Comillas simples sin variables a imprimir
+Si usamos comillas simples, no podemos poner variables dentro, para hacer esto si o si debemos usar comillas dobles.
+Ej. si `NOMBRE = "Juan"`
+- `echo "hola $NOMBRE"` imprime `hola Juan`
+- `echo 'hola $NOMBRE'` imprime `hola $NOMBRE` porque se está usando comillas simples y no reconoce que tenga que leer la variable NOMBRE.
+
+5. Espacio alrededor de las expresiones entre corchetes simples, corchetes dobles, y llaves:
+
+En Bash, cuando usas corchetes ([ ]), debes dejar espacios antes y después del operador. Por ejemplo, debe ser [ expresión ] y no [expresión].
+
+#### Estructuras de subproceso
+
+##### 1. Comillas simples (`'...'`)
+**Función:** Se utilizan para definir cadenas literales. Todo lo que se encuentra dentro de los corchetes simples se considera una cadena y no se interpretan variables ni caracteres especiales.
+
+**Características:**
+- No se realiza la expansión de variables.
+- No se realizan interpretaciones de caracteres especiales, como `\n` (nueva línea).
+
+**Ejemplo:**
+```
+VAR='Hola, $USER'  
+echo $VAR  # Salida: Hola, $USER (sin interpretar $USER)  
+```
+##### 2. Comillas dobles (`"..."`)
+**Función:** Se utilizan para definir cadenas de texto donde se quiere permitir la expansión de variables e interpretación de caracteres especiales.
+
+**Características:**
+- Se expande el contenido de las variables.
+- Se interpreta caracteres especiales, como `\n`.
+
+**Ejemplo:**
+```
+VAR="Hola, $USER"  
+echo $VAR  # Salida: Hola, <nombre_de_usuario>  
+```
+##### 3. Paréntesis (`(...)`)
+**Función:** Se utilizan para crear subshells. Los comandos dentro de los paréntesis se ejecutan en una subinstancia del shell actual.
+
+**Características:**
+- El entorno de la subshell es separado del entorno del shell padre.
+- Cambios en el entorno (como cambios de directorio o variables) no se ven reflejados en el shell padre.
+
+**Ejemplo:**
+```
+(cd /tmp && ls)  # Cambia al directorio /tmp y lista su contenido  
+echo $PWD       # Salida: <directorio_original> (no cambia el directorio del shell padre)  
+```
+##### 4. Paréntesis de dólar (`$()`)
+**Función:** Se utiliza para la sustitución de comandos. Permite capturar la salida de un comando y usarla dentro de otra instrucción.
+
+**Características:**
+- Más moderno que los backticks **\`...`**, permite anidamiento más fácil.
+- Elimina la necesidad de escapar ciertos caracteres.
+
+**Ejemplo:**
+```
+CURRENT_DATE=$(date)  
+echo "La fecha actual es: $CURRENT_DATE"  
+```
+##### 5. Backticks (`...`)
+Función: También se utilizan para la sustitución de comandos, aunque son considerados como una forma más antigua y menos legible.
+
+**Características:**
+La sustitución se hace igual que con `$()`, pero se requiere escapar más caracteres si hay anidamientos.
+**Ejemplo:**
+```
+CURRENT_DATE=`date`  
+echo "La fecha actual es: $CURRENT_DATE"  
+```
+##### 6. Comando `test` y `[]` (corchetes simples)
+**Función:** Se utilizan para evaluar expresiones condicionales dentro de scripts.
+
+**Características:**
+- `test` es un comando y `[]` es un alias del comando `test`.
+- Devuelven un código de salida que se puede usar para controlar la lógica del script.
+
+**Ejemplo con `test`:**
+```
+if test -f "archivo.txt"; then  
+    echo "El archivo existe."  
+fi  
+```
+**Ejemplo con `[]`:**
+```
+if [ -f "archivo.txt" ]; then  
+    echo "El archivo existe."  
+fi  
+```
+##### 7. Comparativa de uso
+**Características comunes:**
+- Substitución de comandos:
+`$()` y **\`...`** sirven para capturar la salida de comandos, aunque el primero es preferido por su legibilidad.
+
+
+#### Estucrturas de Control
+
+##### Condicionales
+
+```bash
+if [ $NOMBRE == "Juan" ]; then
+    echo "Hola, Juan"
+else
+    echo "No sos Juan"
+fi
+```
+
+##### Bucle 'for'
+
+```bash
+for i in 1 2 3 4 5; do
+    echo "Número $i"
+done
+```
+
+##### Bucle 'While'
+
+```bash
+COUNTER=1
+while [ $COUNTER -le 5 ]; do
+    echo "Contador: $COUNTER"
+    ((COUNTER++))
+done
+```
+##### Funciones
+
+```bash
+funcion_saludo() {
+    echo "Hola $1"
+}
+funcion_saludo "Juan"
+```
+
+##### Parametros para un script Bash
+
+###### $0 es el nombre del script
+
+###### $1 es el primer parámetro después del nombre del script
+
+###### $* devuelve todos los argumentos como una única cadena string.
+Si se usa entre comillas, se trata como una sola cadena.
+
+###### $# Representa el número total de argumentos pasados al script
+
+###### $@ devuelve todos los argumentos como un iterable
+Similar a $*, pero si se usa entre comillas, cada argumento se mantiene como una palabra separada. Esto es útil cuando se quiere iterar sobre los argumentos.
+
+##### Comparadores en Bash
+
+###### Comparadores de Cadenas de corchetes simples y dobles
+* `=` Comprueba si dos cadenas son iguales.
+```bash
+if [ "$a" = "$b" ]; then  
+    echo "Las cadenas son iguales"  
+fi
+```
+
+* `!=` Comprueba si dos cadenas son diferentes.
+```bash
+if [ "$a" != "$b" ]; then  
+    echo "Las cadenas son diferentes"  
+fi
+```
+
+* `-z` Comprueba si una cadena está vacía (longitud cero).
+```bash
+if [ -z "$a" ]; then  
+    echo "La cadena está vacía"  
+fi
+```
+
+* `-n` Comprueba si una cadena no está vacía (longitud mayor que cero).
+```bash
+if [ -n "$a" ]; then  
+    echo "La cadena no está vacía"  
+fi
+```
+
+* `<` y `>` Compara dos cadenas lexicográficamente. Se suele usar dentro de dobles corchetes ([[ ... ]]).
+```bash
+if [[ "$a" < "$b" ]]; then  
+    echo "$a es menor que $b"  
+fi
+```
+
+###### Comparadores Numéricos de corchetes simples y dobles
+* `-eq` Compara si dos números son iguales.
+```bash
+if [ $a -eq $b ]; then  
+    echo "Los números son iguales"  
+fi
+```
+
+* `-ne` Compara si dos números son diferentes.
+```bash
+if [ $a -ne $b ]; then  
+    echo "Los números son diferentes"  
+fi
+```
+
+* `-lt` Comprueba si el primer número es menor que el segundo.
+```bash
+if [ $a -lt $b ]; then  
+    echo "$a es menor que $b"  
+fi
+```
+
+* `-le` Comprueba si el primer número es menor o igual que el segundo.
+```bash
+if [ $a -le $b ]; then  
+    echo "$a es menor o igual que $b"  
+fi
+```
+
+* `-gt` Comprueba si el primer número es mayor que el segundo.
+```bash
+if [ $a -gt $b ]; then  
+    echo "$a es mayor que $b"  
+fi
+```
+
+* `-ge` Comprueba si el primer número es mayor o igual que el segundo.
+```bash
+if [ $a -ge $b ]; then  
+    echo "$a es mayor o igual que $b"  
+fi
+```
+
+###### Comparadores de Archivos de corchetes simples y dobles
+* `-e` Comprueba si un archivo existe.
+```bash
+if [ -e "archivo.txt" ]; then  
+    echo "El archivo existe"  
+fi
+```
+
+* `-f` Comprueba si un archivo es un archivo regular.
+```bash
+if [ -f "archivo.txt" ]; then  
+    echo "Es un archivo regular"  
+fi
+```
+
+* `-d` Comprueba si un archivo es un directorio.
+```bash
+if [ -d "directorio" ]; then  
+    echo "Es un directorio"  
+fi
+```
+
+* `-r` Comprueba si un archivo es legible.
+```bash
+if [ -r "archivo.txt" ]; then  
+    echo "El archivo es legible"  
+fi
+```
+
+* `-w` Comprueba si un archivo es escribible.
+```bash
+if [ -w "archivo.txt" ]; then  
+    echo "El archivo es escribible"  
+fi
+```
+
+* `-x` Comprueba si un archivo es ejecutable.
+```bash
+if [ -x "archivo.txt" ]; then  
+    echo "El archivo es ejecutable"  
+fi
+```
+
+* `-s` Comprueba si un archivo no está vacío.
+```bash
+if [ -s "archivo.txt" ]; then  
+    echo "El archivo no está vacío"  
+fi
+```
+###### Comparaciones en corchetes dobles `[[]]`
+
+* &&: AND lógico.
+* ||: OR lógico.
+* Expresiones Regulares: Permite verificar si una cadena coincide con una expresión regular.
+Ejemplo:
+`[[ $string =~ regex ]]` 
+
+
+##### Combinación de Condiciones
+Puedes combinar condiciones utilizando los operadores lógicos:
+
+Ejemplo de uso combinado:
+
+```bash
+if [ -e "archivo.txt" ] && [ -r "archivo.txt" ]; then  
+    echo "El archivo existe y es legible"  
+fi
+```
+
+
+### Sitios de internet de Referencia
+
+● VIM:
+- Inglés
+    - Youtube @ThePrimeagen
+- Español
+    - Youtube @PeladoNerd
+- Investigar NeoVim, y NVChad.
+    NeoVim es un fork de vim, es decir código abierto con mucho desarrollo comunitario, entonces tiene muchos plugins, a tal punto de que NVChad es una especie de visual studio code en vim.
+    El lenguaje de programación que utiliza se llama "Lua".
+
 ### Comandos para gestionar usuarios
 
 Las cuentas de usuario están localizadas en el fichero `/etc/passwd` y las contraseñas cifradas de los usuarios son asignadas al archivo `/etc/shadow`.
 Cuando una nueva cuenta de usuario es creada (usando el comando `useradd`), de manera predeterminada toma la plantilla (opción -m) `/etc/skel` para generar el entorno de trabajo del usuario (`/home/nombredeusuario`).
 
-#### Comando useradd
+#### Directorio `/etc/passwd`
+Este archivo contiene información básica sobre las cuentas de usuario. Cada línea en este archivo corresponde a un usuario y tiene el siguiente formato:
+
+Sintaxis:
+
+    usuario:x:UID:GID:comentario:directorio:interprete
+
+Ejemplo:
+
+
+
+- **usuario:** El identificador de la cuenta de usuario.
+- **x:** Representa que la contraseña está encriptada y que no está almacenada aquí.
+- **UID:** El Identificador de Usuario (User ID). Es un número que identifica al usuario en el sistema.
+- **GID:** El Identificador de Grupo (Group ID). Es el número que identifica al grupo principal al que pertenece el usuario.
+- **comentario:** Un campo opcional que puede contener información adicional sobre el usuario, como el nombre completo.
+- **directorio:** La ruta al directorio home del usuario (por ejemplo, `/home/usuario`).
+- **interprete:** La ruta al intérprete de órdenes que se debe usar por defecto (por ejemplo, `/bin/bash`).
+
+#### Directorio `/etc/shadow`
+Este archivo almacena información sobre las contraseñas de los usuarios, incluidas las contraseñas encriptadas. Cada línea en este archivo sigue un formato similar:
+
+Sintaxis:
+
+    usuario:contraseña_encriptada:última_cambio:min_días:max_días:min_días_aviso:inactivo:expirado
+
+Ejemplo:
+
+    ubuntu:!:19924:0:99999:7:::
+
+- **usuario:** El nombre de la cuenta de usuario. (ej. ubuntu)
+- **contraseña_encriptada:** La contraseña del usuario, encriptada (si es que el usuario tiene una contraseña configurada). Un valor vacío aquí significa que la cuenta está deshabilitada. (ej. ! significa que no hay contraseña)
+- **última_cambio:** La fecha del último cambio de contraseña, expresada como el número de días desde el 1 de enero de 1970.
+- **min_días:** El número mínimo de días antes de que el usuario pueda cambiar su contraseña.
+- **max_días:** El número máximo de días que la contraseña es válida. Después de esto, el usuario deberá cambiarla.
+- **min_días_aviso:** El número de días de advertencia antes de que la contraseña expire, cuando el usuario es notificado.
+- **inactivo:** El número de días después de que la contraseña ha expirado antes de que la cuenta sea deshabilitada.
+- **expirado:** El número de días desde el 1 de enero de 1970 en que la cuenta expira.
+
+#### Comando `useradd`
 Para generar una cuenta de usuario haremos uso del comando `useradd`, siguiendo esta sintaxis:
 
     # useradd [opciones] nombreDelUsuario
@@ -22,23 +628,31 @@ Opciones:
 
     -b          Define la base para el home del usuario.
     -d          Define el home del usuario.
-    -e          Se usa para especificar la fecha en la que expira la cuenta. Debe especificarse en el siguiente formato Año-Mes-Día. Ejemplos: -e 20100506, -e 20081224, -e 20090214.
-    -f          Número de días antes de que la contraseña expire, 
-    o de que la cuenta sea deshabilitada.
+    -e          Se usa para especificar la fecha en la que expira la cuenta. 
+                Debe especificarse en el siguiente formato Año-Mes-Día. Ejemplos: -e 20100506, -e 20081224, -e 20090214.
+    -f          Número de días antes de que la contraseña expire, o de que la
+                cuenta sea deshabilitada.
     -g          El nombre del grupo o gid asignado a un nuevo usuario.
-    -G          Grupo secundario al cual puede ser asignado un usuario. Ejemplos: -G desarrolloJava, -G ventasMedicas, -G soportePHP.
+    -G          Grupo secundario al cual puede ser asignado un usuario. 
+                Ejemplos: -G desarrolloJava, -G ventasMedicas, -G soportePHP.
+    -r,         --system
+                Create a system account.
+                System users will be created with no aging information in
+                `/etc/shadow`, and their numeric identifiers are chosen in the
+                SYS_UID_MIN-SYS_UID_MAX range, defined in `/etc/login.defs`, instead of UID_MIN-UID_MAX (and their GID counterparts for the creation of groups).
+                Note that useradd will not create a home directory for such a user, regardless of the default setting in `/etc/login.defs` (CREATE_HOME). You have to specify the -m options if you want a home directory for a system account to be created.
     -u          Identificador o uid que será asignado al usuario, por defecto Linux asignará UID’s a partir del número 500. 
     -m          Crea el home del usuario.
     -s          Intérprete de comandos SHELL que será asignado al usuario. Ej.: `/bin/bash`
 
-#### Comando id
+#### Comando `id`
 El comando id sirve para ver la información de un usuario y sus grupos, por ejemplo:
  ```shell
 root@foo:/home/ubuntu# id sergio
 uid=1000(sergio) gid=1000(sergio) grupos=1000(sergio),27(sudo)
 ```
-#### Comando usermod
-El comando usermod modifica los parámetros de acceso asignados a una cuenta existente del sistema.
+#### Comando `usermod`
+El comando `usermod` modifica los parámetros de acceso asignados a una cuenta existente del sistema.
 
 Sintaxis:
 
@@ -77,7 +691,7 @@ cuenta:
 El ejemplo modifica el comentario de la cuenta, su SHELL por defecto, que ahora será Korn SHELL, y su grupo principal de usuario que quedó establecido al GID 505. Todo esto se aplicó al usuario que, como se observa, debe ser el último argumento del command.
 
 
-#### Comando userdel
+#### Comando `userdel`
 El comando userdel remueve un usuario del sistema.
 Sintaxis:
 
@@ -89,7 +703,7 @@ Opciones:
     -f      Elimina todos los del usuario, cuenta, directorios y archivos, pero además lo hace sin importar si el usuario está actualmente en el sistema trabajando
 
 
-#### Comando passwd
+#### Comando `passwd`
 El comando `passwd` se utiliza para cambiar contraseñas.
 Cuando se emplea el comando passwd sin opciones, se cambia la contraseña del usuario que lo invocó. Primero nos exigirá la contraseña vigente y luego pedirá dos veces la nueva para 
 prevenir cualquier error.
@@ -115,7 +729,7 @@ Opciones
 
 ### Administración de grupos
 
-#### Comando groupadd
+#### Comando `groupadd`
 Para dar de alta grupos de trabajo en el sistema usaremos 
 el comando groupadd, el cual deberá ser aplicado según la 
 siguiente sintaxis:
@@ -129,7 +743,7 @@ Opciones:
     -f      Forza al sistema a crear el grupo aunque éste ya exista.
     -o      Asigna un ID existente a un grupo
 
-#### Comando groupmod
+#### Comando `groupmod`
 El comando groupmod permite modificar el nombre o GID de 
 un grupo. 
 Sintaxis:
@@ -141,14 +755,14 @@ Opciones:
     -g      Esta opción cambia el GID de un grupo existente en el sistema.
     -n      Esta opción sirve para cambiar el nombre de un grupo existente por otro.
 
-#### Comando groupdel
+#### Comando `groupdel`
 El comando groupdel elimina un grupo del sistema.
 
 Sintaxis:
 
     # groupdel nombreDelGrupo
 
-#### Comando gpasswd
+#### Comando `gpasswd`
 Permite administrar los grupos. Se puede utilizar para añadir y eliminar usuarios, señalar un administrador e indicar una contraseña para el grupo. 
 
 Sintaxis:
@@ -170,13 +784,13 @@ Opciones para el administrador del grupo:
     -d usuario,, grupo      Se borra permanentemente a un usuario del grupo.
     -r grupo                Elimina la contraseña del grupo
 
-#### Comando grpck
-El comando grpck revisa un grupo de sistema.
+#### Comando `grpck`
+El comando `grpck` revisa un grupo de sistema.
 Sintaxis:
 
     # grpck nombreDelGrupo
 
-#### Comando groups
+#### Comando `groups`
 Nos dice en qué grupos está un usuario:
 ```shell
 root@foo:/home/ubuntu# groups educacionit
@@ -190,6 +804,13 @@ En este tópico se realizarán tareas básicas para poder aplicar una seguridad 
 Seguridad en el equipo
 La seguridad en el equipo es muy importante, no importa lo pequeña que parezca la tarea a securizar, lo importante es saber los métodos y aplicarlos según corresponda.
 
+#### Comando chage
+
+Se usa para listar o cambiar el tiempo en el que expira una contraseña de usuario.
+
+Sintaxis:
+
+    # chage [opciones] nombreDelUsuario
 Opciones:
 
     -d días         Cuenta el número de días (desde 01-01-1970) transcurridos desde que cambió la contraseña por última vez. Se puede usar /MM/DD/YY
@@ -199,14 +820,6 @@ Opciones:
     -m días         Modifica el número mínimo de días entre el cambio de una contraseña de usuario. Evita que el usuario cambie de clave reiteradas veces en el día.
     -W días         Modifica el número de días que se avisará al usuario antes de cambiar la contraseña.
     -l usuario      Muestra la información del usuario especificado.
-
-#### Comando chage
-
-Se usa para listar o cambiar el tiempo en el que expira una contraseña de usuario.
-
-Sintaxis:
-
-    # chage [opciones] nombreDelUsuario
 
 Ejemplo:
 ```shell
@@ -223,72 +836,63 @@ Number of days of warning before password expires : 7
 
 Ahora cambiaremos cada uno de los ítems descriptos para ver cómo quedarían:
 
-```shell
-[root@oc6127656113 ~]# chage -d 10 -E 01/22/2012 -1 9 -M 5 -m 2 -W 2
-matias
-```
+    [root@oc6127656113 ~]# chage -d 10 -E 01/22/2012 -1 9 -M 5 -m 2 -W 2
+    matias
 
 Teniendo en cuenta lo explicado con anterioridad, cambiamos cada uno de sus parámetros:
 
-```shell
-[root@oc6127656113 ~]# chage -1 matias
-Last password change : Jan 11, 1970
-Password expires : Jan 16, 1970
-Password inactive : Jan 25, 1970
-Account expires : Jan 22, 2012
-Minimum number of days between password change : 2 
-Maximum number of days between password change : 5
-Number of days of warning before password expires : 2
-[root@oc6127656113 ~]# 
-```
+    [root@oc6127656113 ~]# chage -1 matias
+    Last password change : Jan 11, 1970
+    Password expires : Jan 16, 1970
+    Password inactive : Jan 25, 1970
+    Account expires : Jan 22, 2012
+    Minimum number of days between password change : 2 
+    Maximum number of days between password change : 5
+    Number of days of warning before password expires : 2
+    [root@oc6127656113 ~]# 
 
 Es importante establecer estos puntos, dado que nos servirán para poder controlar bien el comportamiento de nuestras cuentas.
 Si quisiéramos omitir todo tipo de seguridad:
 
-```shell
-[root@oc6127656113 ~]# chage -d -1 -E -1 -I -1 -M -1 -m -1 -W -11 matias 
-```
+    [root@oc6127656113 ~]# chage -d -1 -E -1 -I -1 -M -1 -m -1 -W -11 matias 
 
 Quedaría así:
-```shell
-[root@oc6127656113 ~]# chage -1 matias
-Last password change : never
-Password expires : never
-Password inactive : never
-Account expires : never
-Minimum number of days between password change : -1
-Maximum number of days between password change : -1
-Number of days of warning before password expires : -1
-[root@oc6127656113 ~]#
-```
+
+    [root@oc6127656113 ~]# chage -1 matias
+    Last password change : never
+    Password expires : never
+    Password inactive : never
+    Account expires : never
+    Minimum number of days between password change : -1
+    Maximum number of days between password change : -1
+    Number of days of warning before password expires : -1
+    [root@oc6127656113 ~]#
 
 O también así:
-```shell
-[root@oc6127656113 ~]# chage -d 999999 -E 999999 -I 999999 -M 999999 -m 
-999999 -W -999999 matias 
-```
+
+    [root@oc6127656113 ~]# chage -d 999999 -E 999999 -I 999999 -M 999999 -m 
+    999999 -W -999999 matias 
+
 Como verán, los tiempos que marcan son imposibles:
 
-```shell
-[root@oc6127656113 ~]# chage -1 matias
-Last password change : Nov 28, 4707
-Password expires : never
-Password inactive : never
-Account expires : Nov 28, 4707
-Minimum number of days between password change : 999999
-Maximum number of days between password change : 999999
-Number of days of warning before password expires : 999999
-[root@oc6127656113 ~]# 
-```
+    [root@oc6127656113 ~]# chage -1 matias
+    Last password change : Nov 28, 4707
+    Password expires : never
+    Password inactive : never
+    Account expires : Nov 28, 4707
+    Minimum number of days between password change : 999999
+    Maximum number of days between password change : 999999
+    Number of days of warning before password expires : 999999
+    [root@oc6127656113 ~]# 
 
 ### Automatización de Tareas
 Ahora veremos temas relacionados con la automatización de tareas, tema fundamental para poder delegar tareas al sistema y controlar mejor su funcionamiento.
-Utilizaremos y configuraremos servicios fundamentales como cron, at y anacron, viendo su funcionamiento y configuración en cada caso particular
-En nuestro sistemas hay tareas que se realizan sin que nosotros tengamos intervención alguna. Esto es una manera de poder automatizar tareas y dejar de tener que estar presente para poder realizarla.
+Utilizaremos y configuraremos servicios fundamentales como `cron`, `at` y `anacron`, viendo su funcionamiento y configuración en cada caso particular. Esto es una manera de poder automatizar tareas y dejar de tener que estar presente para poder realizarla.
+En nuestro sistema hay tareas que se realizan periódicamente sin que nosotros tengamos intervención alguna, esto es conseguido mediante alguna de las siguientes maneras: 
 
 #### Comando `at`
 
-Con el comando at se pueden ejecutar trabajos por lotes, para ser ejecutados por única vez.
+Con el comando `at` se pueden ejecutar trabajos por lotes, para ser ejecutados por única vez.
 Se puede programar un trabajo de dos maneras diferentes:
 ● Programar el trabajo a ser ejecutado en un momento determinado. Por ejemplo, el 03 de julio, 10am.
 ● Programar el trabajo a ser ejecutado en el tiempo con respecto a partir de ahora. Por ejemplo, 5 horas a partir de ahora.
@@ -372,14 +976,37 @@ Sintaxis:
     $ at now + 1 hour
     $ at now + 1 day
 
-● Ingresar los comandos por medio del teclado, al terminar de tipear pulsar las teclas “ctrl d” y aparecerá <EOT> y la fecha en la que se ejecutará.
+Ingresar los comandos por medio del teclado, al terminar de tipear pulsar las teclas “ctrl d” y aparecerá <EOT> y la fecha en la que se ejecutará.
 Syntaxis:
+
+● **Ejemplo de uso del comando `at`**
+Imagina que deseas programar un script de respaldo (backup) que se llame backup.sh para que se ejecute a las 3:00 PM de hoy. 
+
+1. Abre la terminal.
+
+2. Escribe el siguiente comando para programar la tarea para que se ejecute a esa hora:
+
+    at 15:00  
+
+3. Después de presionar Enter, verás un prompt donde puedes ingresar el comando. Escribe lo siguiente:
+
+    /path/to/backup.sh
+
+4. Presiona Ctrl + D para finalizar la entrada. Después de escribir todos los comandos que deseas ejecutar, al presionar las teclas Ctrl y D envía una señal de "fin de archivo" (EOF, End Of File) al proceso, indicando que has terminado de ingresar tus comandos.
+
+5. Deberías en este ejemplo ver una salida similar a esta:
+
+    job 1 at 2023-10-10 15:00  
+
+Esto indica que tu comando para ejecutar el script `backup.sh` se ha programado para las 3:00 PM del día actual.
 
     # at now + 2 min
     at> touch /tmp/lala.txt
     at> touch /tmp/lala2.txt
     at> <EOT>
     job 11 at Wed Dec 1 22:21:00 2014
+
+ En este otro ejemplo, touch se usa para crear (o actualizar) dos archivos vacíos en el directorio /tmp. Una vez transcurridos 2 minutos desde cuando se ejecutó el comando `at`, estos archivos serán creados, o si ya existían, sus fechas de modificación serán actualizadas a ese momento.
 
 #### Otros tipos adicionales de formatos de hora del comando at
 
@@ -410,40 +1037,51 @@ Por ejemplo, para eliminar el trabajo número 4, utilizamos el siguiente comando
 
 También se puede utilizar `atd -d 4`.
 
-#### Comando batch
+Como no es posible editar una tarea programada con el comando at una vez que has presionado Ctrl + D (o Enter, si estás usando una única línea de comandos), la única alternativa disponible es:
+**Listar las tareas programadas con `atq`, Eliminar la tarea programada con `atrm` y volver a programar una nueva con `at`.**
 
-El comando batch ejecutará un trabajo solo cuando el promedio de carga del sistema sea menor a 1,5.
-Al igual que el comando at, se puede ejecutar batch, ingresar los comandos y luego pulsar las teclas “ctrl d”. Por ejemplo, actualizar la base de datos de locate cuando la carga sea menor a 1.5:
+    atq          # Lista los trabajos programados  
+    atrm <job_id>  # Elimina el trabajo especificado  
+    # Recrear la tarea: Después de eliminar la tarea programada, puedes volver a usar el comando at para crear una nueva tarea con los comandos deseados.
+
+
+#### Comando `batch`
+
+El comando `batch` ejecutará un trabajo solo cuando el promedio de carga del sistema sea menor a 1,5. A diferencia del comando `at`, que permite especificar un tiempo concreto para la ejecución, `batch` coloca el trabajo en una cola y se ejecutará cuando el sistema esté libre.
+
+La programación del trabajo es similar al comando `at`, se puede ejecutar `batch`, ingresar los comandos y luego pulsar las teclas `“ctrl d”`. Por ejemplo, actualizar la base de datos de `locate` cuando la carga sea menor a 1.5:
 
     $ batch
     at> updatedb
     at> <EOT>
     job 11 at Wed Dec 1 22:25:00 2014
 
+Cuando se utiliza `batch`, si el sistema tiene recursos disponibles (lo que significa que no está muy ocupado con otros procesos), el trabajo se programará para ejecutarse lo antes posible. Sin embargo, esta programación no necesariamente será inmediatamente después de haber ingresado el comando, sino que puede tomar un pequeño tiempo basado en la disponibilidad del sistema.
+
+Así que el tiempo que ves como resultado puede parecer un poco arbitrario, pero se basa en el algoritmo interno del sistema para decidir cuándo ejecutar trabajos en la cola.
+
 #### Archivos `at.allow` y `at.deny`
 
-En primer lugar, el sistema controla el archivo at.allow. Si at.allow existe, solo los nombres de usuario especificados en el archivo at.allow están permitidos para el uso de trabajos.
-A continuación, (si at.allow no existe), se controla a at.deny. Si at.deny existe, a los nombres de usuarios especificados en el archivo at.deny no se les permite utilizar el comando at.
-De manera predeterminada, la mayoría de los sistemas utiliza at.deny para poner fin al uso de trabajos a ciertos usuarios de sistema, como www-data, nobody, backup, etc.
-Ejecutar un comando y luego salir de la SHELL. Podemos ejecutar un comando (o SHELL script) en el servidor remoto utilizando el comando at y salir de la SHELL.
+En primer lugar, el sistema controla el archivo `at.allow`. Si `at.allow` existe, solo los nombres de usuario especificados en el archivo `at.allow` están permitidos para el uso de trabajos.
+A continuación, (si `at.allow` no existe), se controla a `at.deny`. Si `at.deny` existe, a los nombres de usuarios especificados en el archivo `at.deny` no se les permite utilizar el comando `at`.
+De manera predeterminada, la mayoría de los sistemas utiliza `at.deny` para poner fin al uso de trabajos a ciertos usuarios de sistema, como `www-data`, `nobody`, `backup`, etc.
+Ejecutar un comando y luego salir de la SHELL. Podemos ejecutar un comando (o SHELL script) en el servidor remoto utilizando el comando `at` y salir de la SHELL.
 
     $ at -f myjob now + 1 min
     $ exit
 
-Myjob seguirá funcionando incluso después de salir fuera del servidor, de manera similar al comando nohup.
+Myjob seguirá funcionando incluso después de salir fuera del servidor, de manera similar al comando `nohup`.
 
 ### Uso de Crontab
 
-Para poder utilizar este tipo de tareas programadas primero 
-debemos ver cómo es el archivo de configuración, para así 
-programar nuestras tareas.
-Las tareas las pueden programar los usuarios o también
-el sistema.
+Para poder utilizar este tipo de tareas programadas primero debemos ver cómo es el archivo de configuración, para así programar nuestras tareas.
+Las tareas las pueden programar los usuarios o también el sistema.
 
     SHELL       Indica que interprete deberá ejecutar los comandos
     PATH        Estableceremos el camino de búsqueda de comandos
-    que deberá seguir el sistema.
-    MAILTO      Se define el email al que llegarán las salidas de los comandos ejecutados.
+                que deberá seguir el sistema.
+    MAILTO      Se define el email al que llegarán las salidas de 
+                los comandos ejecutados.
 
 Estas variables no son estrictamente necesarias.
 
@@ -483,7 +1121,7 @@ En lugar de especificar los valores en los cinco campos, se puede especificar un
 |Clave| Equivalente|
 |-----|:----------:|
 |@yearly |0 0 1 1 *|
-|monthly |0 0 1 * *|
+|@monthly |0 0 1 * *|
 |@daily |0 0 * * *|
 |@hourly |0 * * * *|
 |@reboot |Arranca en el inicio.|
@@ -509,8 +1147,7 @@ El primer campo que corresponde a los minutos tiene `/`, eso significa que lo ha
 
     */5 * * * * /home/crond1/backup.sh
 
-De la misma forma, usando `*/6` sería cada 6 minutos, `*/15`
-para 15 minutos, etc.
+De la misma forma, usando `*/6` sería cada 6 minutos, `*/15` para 15 minutos, etc.
 
 ● Ejecutar una tarea cada 5 horas
 El segundo campo que corresponde a la hora tiene / ,eso significa que lo hará cada 5 horas `(*/5)`.
@@ -573,7 +1210,7 @@ El siguiente ejemplo chequea el estado de la base de datos todos los días de se
 
     0 09-18 * * 1-5 /home/ramesh/bin/check-db-status
 
-##### Administración de tareas programadas
+##### Administración de tareas programadas = `/var/spool/cron/` ó `/var/spool/cron/crontabs/`
 
 Los crontabs de los usuarios se encuentran en el directorio `/var/spool/cron/` o `/var/spool/cron/crontabs/` según la distribución. Dentro de este directorio aparecerá un archivo con el nombre del usuario, dentro tendrá las tareas programadas.
 
@@ -592,12 +1229,12 @@ Los crontabs de los usuarios se encuentran en el directorio `/var/spool/cron/` o
 
     # crontab -u crond1 -r
 
-##### Crontab del sistema
+##### Crontab del sistema = `/etc/crontab`
 El archivo de cron de sistema es `/etc/crontab`. Si ponemos tareas en dicho archivo serán ejecutadas igualmente, aunque no es recomendable. Este crontab se deja para que lo maneje la distribución y sus programas. Es igual que el crontab de `root`, salvo que en este podemos especificar con qué usuario se ejecuta cada cosa, y cron hará una suplantación previa a la ejecución.
 
 ##### Archivos de configuración del Crontab
 
-Los archivos de configuración del crontab se encuentran en `/etc/cron`. También tenemos un `/etc/crond.denypara` denegar o un `/etc/cron.allow` para permitir el uso de cron.
+Los archivos de configuración del crontab se encuentran en `/etc/cron`. También tenemos un `/etc/crond.deny` para denegar o un `/etc/cron.allow` para permitir el uso de cron.
 
     # ls -ld /etc/cron.*
     drwxr-xr-x. 2 root root 4096 dic 18 04:24 /etc/cron.d
@@ -624,7 +1261,7 @@ Si creamos un script de bash y lo guardamos en `/root/bin`, le damos permisos de
     # chmod +x /root/bin/miScript.sh
     # ln -s /root/bin/miScript.sh /etc/cron.hourly/
 
-Algunos archivos importantes que deniegan el acceso a crontab son /etc/cron.deny, /etc/cron.allow; con estos dos archivos, dependiendo cuál utilicemos, le permitirán a los usuarios poder usar crontab, o, sino, especificar quiénes no van a poder utilizarlo.
+Algunos archivos importantes que niegan el acceso a crontab son `/etc/cron.deny`, `/etc/cron.allow`; con estos dos archivos, dependiendo cuál utilicemos, le permitirán a los usuarios poder usar crontab, o, sino, especificar quiénes no van a poder utilizarlo.
 Es más útil definir quién lo puede utilizar, así acotamos el margen de error.
 
 
@@ -657,6 +1294,11 @@ Anacron fue originalmente diseñado para ejecutar tareas en sistemas que no est�
 Anacron corre por medio de cron vía el archivo `0anacron` en `/etc/cron.hourly`. Por ende, anacron no corre como un demonio por su cuenta.
 La configuración se encuentra en el archivo `/etc/anacrontab` y éste ejecuta lo que se encuentra en los directorios `/etc/cron.{daily,weekly,monthly}`.
 
+El archivo `/etc/anacrontab` tiene listados todos los trabajos de anacron, en el siguiente formato:
+
+    Período     Retraso     Identificador   Comando
+    Period      Delay       Job-identifier  Command
+
 Ejemplo
 
     SHELL=/bin/sh
@@ -671,10 +1313,7 @@ Ejemplo
     7 25 cron.weekly nice run-parts /etc/cron.weekly
     @monthly 45 cron.monthly nice run-parts /etc/cron.monthly
 
-El archivo `/etc/anacrontab` tiene los trabajos de anacron mencionados en el siguiente formato:
 
-    Período     Retraso     Identificador   Comando
-    Period      Delay       Job-identifier  Command
 
 **Campo 1:** es el período de recurrencia, este es un valor numérico que especifica el número de días.
 
@@ -745,10 +1384,10 @@ Esto sucede, por ejemplo, en CentOS 7.
 Como muchos saben, GNU/Linux es un sistema operativo internacional, con usuarios y colaboradores en diferentes lugares del planeta. 
 Debido a eso, es muy importante el soporte a los distintos tipos de idiomas, caracteres, teclados, formato de fecha y tiempo, entre otras configuraciones regionales. Muchas de estas cuestiones se definen durante la instalación del sistema, pero nada impide realizarlo a posteriori, de esto último trata este tópico.
 
-#### Localización e internacionalización
+#### Internacionalización y Localización
 
-● localización,
-● internacionalización.
+● Internacionalización.
+● Localización,
 
 Son dos términos muy importantes a tener en cuenta en relación a este tema.
 
@@ -774,7 +1413,7 @@ Cada parte del parámetro mencionado previamente tiene sus valores a tomar.
     Para territory podría ser US (United States), FR (France), JP (Japan), AR (Argentina) etc. Son códigos específicos para cada región.
     Para codeset podría ser ASCII, UTF-8 u otras codificaciones.
 
-### ASCII 
+#### ASCII 
 El método de codificación ASCII (American Standard Code for Information Interchange) es la más vieja y primitiva de todas, soporta codificación de 7-bit (generalmente almacenada 
 en 8-bytes) en donde puede manejar la codificación en inglés incluyendo las puntuaciones y símbolos más comunes.
 
@@ -784,7 +1423,7 @@ ISO-8859 fue creada para extender ASCII dado que usa un octavo bit para extender
 
 Posteriormente salieron ISO-8859-1 y ISO-8899-5 en donde se dió soporte a Europa occidental y a Cirílico.
 
-### UTF-8
+#### UTF-8
 La codificación de lenguaje más usada es el Unicode Transformation Format de 8-bit (UTF-8). Como su predecesor ISO-8859, éste también arrancó con ASCII pero se extiende dando soporte por medio de un bit variable en donde un único carácter puede tomar desde uno a cuatro bytes para ser codificado y esto le provee la habilidad de codificar texto en cualquier idioma soportado por Unicode, por lo que puede soportar cualquier lenguaje.
 
 Otra ventaja importante sobre ISO-8859 es que no se necesito documentar otro subestándar (como ISO-8859-1 y 5). UTF-8 maneja todos sus sistemas de escritura de forma automática.
@@ -810,9 +1449,7 @@ Para ver qué localización estamos usando en nuestro entorno, podemos ejecutar 
     LC_IDENTIFICATION="en_US.UTF-8"
     LC_ALL=
 
-Teniendo en cuenta lo visto anteriormente podemos 
-entender un poco mejor acerca de los valores que tienen 
-asignadas cada variable.
+Teniendo en cuenta lo visto anteriormente podemos entender un poco mejor acerca de los valores que tienen asignadas cada variable.
 
 | Variable | Descripción | 
  | ------- | ----------- | 
@@ -1021,7 +1658,7 @@ Ejemplo de paquete con Autools: Descarga del paquete
 
 Descompresión y extracción del paquete
 
-    # tar xvzf ncdu-1.14.2.tar.gz
+    # tar -xvzf ncdu-1.14.2.tar.gz
     ncdu-1.14.2/
     ncdu-1.14.2/install-sh
     ncdu-1.14.2/Makefile.am
@@ -1276,7 +1913,7 @@ Si quisiéramos desinstalar se debería ejecutar:
 #### Compilar usando CMake
 
 CMake se usa mucho con los lenguajes C y C++, y se usa en proyectos de software libre (`Ninja`), software privativo (`Visual Studio`) y mixto (`Xcode`).
-Hay algunos paquetes que usan un tipo de controlador de compilación distinto como cmake. En este caso el tipo de compilación es un poco distinto.
+Hay algunos paquetes que usan un tipo de controlador de compilación distinto como `cmake`. En este caso el tipo de compilación es un poco distinto.
 En general, se prefiere no compilar sobre el propio directorio de las fuentes sino en un directorio aparte.
 
     $ mkdir build && cd build
@@ -1351,8 +1988,7 @@ Actualmente Linux es un núcleo monolítico híbrido. Los controladores de dispo
 A diferencia de los núcleos monolíticos tradicionales, los controladores de dispositivos y las extensiones al núcleo se pueden cargar y descargar fácilmente como módulos, mientras el sistema continúa funcionando sin interrupciones. 
 Además, los controladores pueden ser prevolcados (detenidos momentáneamente por actividades más importantes) bajo ciertas condiciones. 
 Esta habilidad fue agregada para gestionar correctamente interrupciones de hardware, y para mejorar el soporte de multiprocesamiento simétrico.
-El hecho de que Linux no fuera desarrollado siguiendo el diseño de un micronúcleo (diseño que, en aquella época, era considerado el más apropiado para un núcleo por muchos teóricos informáticos) fue asunto de una famosa y 
-acalorada discusión entre Linus Torvalds y Andrew S. Tanenbaum.
+El hecho de que Linux no fuera desarrollado siguiendo el diseño de un micronúcleo (diseño que, en aquella época, era considerado el más apropiado para un núcleo por muchos teóricos informáticos) fue asunto de una famosa y acalorada discusión entre Linus Torvalds y Andrew S. Tanenbaum.
 
 #### Categorías del kernel
 
@@ -1386,12 +2022,12 @@ Otra opción es instalar el paquete de fuentes del kernel de la distribución.
     ‘^linux-source’.
 
 #### Extraer las fuentes del kernel
-Tradicionalmente se usaba el directorio /usr/src para poner las fuentes del kernel, en la actualidad eso no se recomienda y es preferible hacerlo como usuario distinto de root.
+Tradicionalmente se usaba el directorio `/usr/src` para poner las fuentes del kernel, en la actualidad eso no se recomienda y es preferible hacerlo como usuario distinto de `root`.
 
     $ cd /home/sergio
     $ tar --auto-detect -xvf linux-5.4.71.tar.xz && cd linux-5.4.71
 
-Luego podemos hacer un listado de los archivos y veremos un directorio llamado Documentation el cual contiene información muy importante de los distintos componentes del kernel.
+Luego podemos hacer un listado de los archivos y veremos un directorio llamado `Documentation` el cual contiene información muy importante de los distintos componentes del kernel.
 
     $ ls
     arch certs CREDITS Documentation fs init Kbuild kernel LICENSES Makefile net samples security tools virt
@@ -1436,7 +2072,7 @@ La siguiente tabla muestra los tipos de funcionalidades que podemos encontrar:
 
 Se puede usar la **barra de estado** para habilitar o deshabilitar funciones.
 Si una funcionalidad está en blanco significa que no se compilará de ninguna manera en el kernel, si tiene **‘M’** estará como módulo y si tiene **‘*’** estará dentro del kernel.
-Una vez que terminamos nuestra configuración podemos guardarla, seleccionando **<Save>**.
+Una vez que terminamos nuestra configuración podemos guardarla, seleccionando **`<Save>`**.
 
 ### Interfaces de configuración alternativas
 
@@ -1445,8 +2081,8 @@ Se pueden usar interfaces alternativas de configuración cambiando el parámetro
 |Comando | Interfaz|
 |--------|---------|
 |make | Línea de comandos (Texto puro).|
-|make | xconfig Gráfica, basada en librerías Qt.|
-|make | gconfig Gráfica: basada en librerías GTK+|
+|make xconfig | Gráfica, basada en librerías Qt.|
+|make gconfig | Gráfica: basada en librerías GTK+|
 
 #### Compilar
 
@@ -1463,8 +2099,7 @@ El sistema se encargará de:
 ● Actualizar grub.
 
 #### Disco de Memoria Inicial
-En versiones más viejas se puede usar el comando o bien 
-mkinitramfs o dracut para generar el archivo initramfs:
+En versiones más viejas se puede usar el comando o bien `mkinitramfs` o `dracut` para generar el archivo `initramfs`:
 
 #### Comando `update-initramfs`
 
@@ -1536,12 +2171,13 @@ Asumamos que el número de la versión está compuesta de esta forma: `A.B.C[.D]
 El **número A** denota la **versión del núcleo**. Es el que cambia con menor frecuencia y solo se produce cuando se produce un gran cambio en el código o en el concepto del núcleo. 
 Históricamente sólo ha sido modificado 3 veces: en 1994 (versión 1.0), en 1996 (versión 2.0) y en 2011 (versión 3.0). 
 
-El **número B** denota la **subversión del núcleo**. Antes de la serie de `Linux 2.6.x`, los números pares indican la versión “estable” lanzada. Por ejemplo, una para uso de fabricación, como el `1.2`, `2.4` y `2.6`. Los números impares, en cambio, como la serie `2.5.x`, son versiones de desarrollo, es decir, que son consideradas de producción. Comenzando con la serie Linux `2.6.x`, no hay gran diferencia entre los números pares e impares con respecto a las nuevas herramientas desarrolladas en la misma serie del núcleo. Linus Torvalds dictaminó que éste será el modelo del 
-futuro. 
+El **número B** denota la **subversión del núcleo**. Antes de la serie de `Linux 2.6.x`, los números pares indican la versión “estable” lanzada. Por ejemplo, una para uso de fabricación, como el `1.2`, `2.4` y `2.6`. Los números impares, en cambio, como la serie `2.5.x`, son versiones de desarrollo, es decir, que son consideradas de producción. Comenzando con la serie Linux `2.6.x`, no hay gran diferencia entre los números pares e impares con respecto a las nuevas herramientas desarrolladas en la misma serie del núcleo. Linus Torvalds dictaminó que éste será el modelo del futuro. 
+
 El **número C** indica una revisión mayor en el núcleo. En la forma anterior de versiones con tres números, esto fue cambiado cuando se implementaron en el núcleo los parches de seguridad, bug fixes, nuevas características o drivers. Con la nueva política, solo es cambiado cuando se introducen nuevos drivers o características; cambios menores se reflejan en el **número D**.
 
 El **número D** se produjo cuando un grave error, que requiere de un **arreglo inmediato**, se encontró en el código NFS de la versión 2.6.8. Sin embargo, no había otros cambios como para lanzar una nueva revisión (la cual hubiera sido 2.6.9). Entonces se lanzó la versión 2.6.8.1., con el error arreglado como único cambio. Con 2.6.11, esto fue adoptado como la nueva política de versiones. Bug fixes y parches de seguridad son actualmente manejados por el cuarto número dejando los cambios mayores para el número C. 
-También, algunas veces luego de las versiones puede haber algunas letras como **“rc1”** o **“mm2”**. El “rc” se refiere a release candidate e indica un lanzamiento no oficial. Otras letras usualmente (pero no siempre) hacen referencia a las iniciales de la persona. Esto indica una bifurcación en el desarrollo del núcleo realizado por esa persona, por ejemplo, que se refiere a Con Kolivas, **ac** a Alan Cox, mientras que **mm** se refiere a Andrew Morton.
+
+También, algunas veces luego de las versiones puede haber algunas letras como **“rc1”** o **“mm2”**. El “rc” se refiere a `release candidate` e indica un lanzamiento no oficial. Otras letras usualmente (pero no siempre) hacen referencia a las iniciales de la persona. Esto indica una bifurcación en el desarrollo del núcleo realizado por esa persona, por ejemplo, **ck** que se refiere a `Con Kolivas`, **ac** a `Alan Cox`, mientras que **mm** se refiere a `Andrew Morton`.
 
 El modelo de desarrollo para Linux 2.6 fue un cambio significativo desde el modelo de desarrollo de Linux 2.5. Previamente existía una rama estable (2.4) donde se habían producido cambios menores y seguros, y una rama inestable (2.5) donde estaban permitidos cambios mayores. Esto significó que los usuarios siempre tenían una versión 2.4 a prueba de fallos y con lo último en seguridad y casi libre de errores, aunque tuvieran que esperar por las características de la rama 2.5. La rama 2.5 fue eventualmente declarada estable y renombrada como 2.6. Pero en vez de abrir una rama 2.7 inestable, los desarrolladores de núcleos eligieron continuar agregando los cambios en la rama “estable” 2.6. 
 De esta forma no había que seguir manteniendo una rama vieja pero estable y se podía hacer que las nuevas características estuvieran rápidamente disponibles y se pudieran realizar más tests con el último código.

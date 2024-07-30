@@ -17,19 +17,26 @@ Los 2 mecanismos principales de arranque en Linux son `SysVinit` y `systemD`, de
 
 ##### Monitorización de Servicios SysVinit
 Utilizamos el comando `service`
-- service <nombre> status
-- service <nombre> start
-- service <nombre> stop
+- `service <nombre> status`
+- `service <nombre> start`
+- `service <nombre> stop`
 
 
 
 ##### Monitorización de Servicios SystemD
 Utilizamos el comando `systemctl`. No obstante SystemD tiene compatibilidad con SysVinit a nivel de comandos.
-- systemctl status <nombre>
-- systemctl start <nombre>
-- systemctl stop <nombre>
-
-
+- Conocer el estado de un servicio: `systemctl status <nombre>`
+- `systemctl start <nombre>`
+- `systemctl stop <nombre>`
+- Habilitar servicio para que se inicie automáticamente al arrancar el sistema: `systemctl enable <nombre>`
+- Confirmar si el servicio se está inicindo con el sistema al arrancar: `systemctl is-enabled <nombre>`
+- Listar todos los servicios en ejecución gestionados por SystemD: `sudo systemctl list-units --type=service --state=running`
+- Mostrar los logs desde el inicio del sistema: `journalctl`
+- Mostrar los logs para un servicio específico: `journalctl -u [servicio]`
+- Mostrar los logs desde un tiempo específico: `journalctl - since "YYYY-MM-DD HH:MM:SS"`
+- Mostrar los logs desde la última hora: `journalctl -since "1 hour ago"`
+- Mostrar los logs en follow mode: `journalctl -f`
+- Mostrar los logs del sistema con detalles adicionales sobre errores o warnings: `journalctl -xe`
 
 
 ### SysVinit
@@ -1481,7 +1488,17 @@ Este proyecto empezó en el 2004 cuando su autor principal Rainer Gerhards decid
 
 ### Herramientas de Logs
 
-#### Commando Logger
+#### Comandeo `journalctl`
+Este es un comando para ver y analizar los logs de un sistema que esté utilizando `SystemD` 
+
+- Mostrar los logs desde el inicio del sistema: `journalctl`
+- Mostrar los logs para un servicio específico: `journalctl -u [servicio]`
+- Mostrar los logs desde un tiempo específico: `journalctl - since "YYYY-MM-DD HH:MM:SS"`
+- Mostrar los logs desde la última hora: `journalctl -since "1 hour ago"`
+- Mostrar los logs en follow mode: `journalctl -f`
+- Mostrar los logs del sistema con detalles adicionales sobre errores o warnings: `journalctl -xe`
+
+#### Commando `logger`
 El comando logger se usa para hacer entradas en el sistema de registro (syslog). Puedes escribir mensajes en el registro del sistema desde la línea de comandos. Es útil para generar logs desde scripts o aplicaciones.
 Con este comando podremos hacer llamadas a syslog(3) para que el sistema pueda escribir un log donde se le indique.
 Sintáxis:
@@ -1823,6 +1840,16 @@ root@foo:/home/ubuntu# cat /etc/logrotate.d/vsftpd
 
 * tarea: https://sadservers.com/scenarios
 * Más tarea: https://codewars.com
+* Reddit:
+    -Inglés
+        - reddit.com/r/devops
+        - reddit.com/r/sysadmin
+
+    -Youtube
+        para aprender inglés:
+        -https://youtube.com/@SoyMiguelIdiomas
+* https://roadmap.sh/devops Roadmap de devops.
+
 
 #### Diferencia entre PS y SystemD (comando systemctl)
 
@@ -1893,7 +1920,6 @@ Ejemplo: Un servicio como httpd o nginx (servidor web) funciona en segundo plano
     `Base de Datos`: Un servicio de base de datos (como MySQL o PostgreSQL) se ejecuta como un proceso que proporciona acceso a las aplicaciones a través de consultas. Aquí, el servicio y el proceso son equivalentes en el contexto de que el servicio sirve como una instancia de un proceso que gestiona las solicitudes de bases de datos.
 
 En resumen, `todos los servicios son procesos, pero no todos los procesos son servicios`. La distinción radica en cómo están diseñados para operar y cómo son gestionados por el sistema operativo.
-
 
 #### Directorios importantes para trabajar en linux
 Hay 3 directorios importantes para trabajar en linux con hardware, dado que en linux todo es un archivo.

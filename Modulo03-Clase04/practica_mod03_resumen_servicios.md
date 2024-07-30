@@ -10,4 +10,6 @@
 - __Comprobemos el estado de un servicio (systemD):__ sudo systemctl status apache2
 - __Listar todos los servicios en ejecución (systemD):__ sudo systemctl list-units --type=service –-state=running
 - __Verificar si el servicio está habilitado al arranque:__ sudo systemctl is-enabled apache2
-- __Cambiar configuración del servicio sin reiniciarlo:__ sudo systemctl reload apache2
+- __Cambiar configuración del servicio sin reiniciarlo:__ sudo systemctl reload apache2 
+
+\# recarga la configuración de un servicio sin reiniciarlo, por ejemplo si reinicias un servidor, nadie lo va a poder usar. Entonces reload vendría a ser ideal si hay algún problema. No todas las aplicaciones son compatibles con este comando.
