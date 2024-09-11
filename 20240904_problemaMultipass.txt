@@ -1,0 +1,187 @@
+C:\Windows\system32>multipass list
+Name                    State             IPv4             Image
+foo                     Running           N/A              Ubuntu 24.04 LTS
+
+C:\Windows\system32>multipass shell foo
+shell failed: ssh connection failed: 'Timeout connecting to foo.mshome.net'
+
+C:\Windows\system32>multipass --help
+Usage: multipass [options] <command>
+Create, control and connect to Ubuntu instances.
+
+This is a command line utility for multipass, a
+service that manages Ubuntu instances.
+
+Options:
+  -?, -h, --help  Displays help on commandline options
+  -v, --verbose   Increase logging verbosity. Repeat the 'v' in the short
+                  option for more detail. Maximum verbosity is obtained with 4
+                  (or more) v's, i.e. -vvvv.
+
+Available commands:
+  alias         Create an alias
+  aliases       List available aliases
+  authenticate  Authenticate client
+  delete        Delete instances and snapshots
+  exec          Run a command on an instance
+  find          Display available images to create instances from
+  get           Get a configuration setting
+  help          Display help about a command
+  info          Display information about instances or snapshots
+  launch        Create and start an Ubuntu instance
+  list          List all available instances or snapshots
+  mount         Mount a local directory in the instance
+  networks      List available network interfaces
+  prefer        Switch the current alias context
+  purge         Purge all deleted instances permanently
+  recover       Recover deleted instances
+  restart       Restart instances
+  restore       Restore an instance from a snapshot
+  set           Set a configuration setting
+  shell         Open a shell on a running instance
+  snapshot      Take a snapshot of an instance
+  start         Start instances
+  stop          Stop running instances
+  suspend       Suspend running instances
+  transfer      Transfer files between the host and instances
+  umount        Unmount a directory from an instance
+  unalias       Remove aliases
+  version       Show version details
+
+C:\Windows\system32>multipass launch
+launch failed: Remote "" is unknown or unreachable.
+
+C:\Windows\system32>multipass launch foo2
+launch failed: 'foo2' is not a supported alias. Please use `multipass find` for supported image aliases.
+
+C:\Windows\system32>multipass find
+Image                       Aliases           Version          Description
+20.04                       focal             20240821         Ubuntu 20.04 LTS
+22.04                       jammy             20240821         Ubuntu 22.04 LTS
+24.04                       noble,lts         20240821         Ubuntu 24.04 LTS
+appliance:adguard-home                        20200812         Ubuntu AdGuard Home Appliance
+appliance:mosquitto                           20200812         Ubuntu Mosquitto Appliance
+appliance:nextcloud                           20200812         Ubuntu Nextcloud Appliance
+appliance:openhab                             20200812         Ubuntu openHAB Home Appliance
+appliance:plexmediaserver                     20200812         Ubuntu Plex Media Server Appliance
+
+Blueprint                   Aliases           Version          Description
+anbox-cloud-appliance                         latest           Anbox Cloud Appliance
+charm-dev                                     latest           A development and testing environment for charmers
+docker                                        0.4              A Docker environment with Portainer and related tools
+jellyfin                                      latest           Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.
+minikube                                      latest           minikube is local Kubernetes
+ros-noetic                                    0.1              A development and testing environment for ROS Noetic.
+ros2-humble                                   0.1              A development and testing environment for ROS 2 Humble.
+
+
+C:\Windows\system32>multipass launch noble
+launch failed: 'noble' is not a supported alias. Please use `multipass find` for supported image aliases.
+
+C:\Windows\system32>multipass shell foo
+shell failed: ssh connection failed: 'Timeout connecting to foo.mshome.net'
+
+C:\Windows\system32>multipass stop foo
+
+C:\Windows\system32>multipass list
+Name                    State             IPv4             Image
+foo                     Stopped           --               Ubuntu 24.04 LTS
+
+C:\Windows\system32>multipass start foo
+start failed: The following errors occurred:
+foo: timed out waiting for response
+
+C:\Windows\system32>net stop multipassd
+El nombre de servicio no es válido.
+
+Puede obtener más ayuda con el comando NET HELPMSG 2185.
+
+
+C:\Windows\system32>net stop multipass
+El servicio de Multipass Service está deteniéndose.
+El servicio de Multipass Service se detuvo correctamente.
+
+
+C:\Windows\system32>net start multipass
+El servicio de Multipass Service está iniciándose.
+El servicio de Multipass Service se ha iniciado correctamente.
+
+
+C:\Windows\system32>multipass start foo
+Starting foo -
+
+
+
+C:\Windows\system32>net stop multipass
+El servicio de Multipass Service está deteniéndose.
+El servicio de Multipass Service se detuvo correctamente.
+
+
+C:\Windows\system32>net start multipass
+El servicio de Multipass Service está iniciándose.
+El servicio de Multipass Service se ha iniciado correctamente.
+
+
+C:\Windows\system32>multipass start foo
+start failed: The following errors occurred:
+foo: timed out waiting for response
+
+C:\Windows\system32>
+C:\Windows\system32>
+C:\Windows\system32>
+C:\Windows\system32>multipass find
+Image                       Aliases           Version          Description
+core                        core16            20200818         Ubuntu Core 16
+core18                                        20211124         Ubuntu Core 18
+core20                                        20230119         Ubuntu Core 20
+core22                                        20230717         Ubuntu Core 22
+20.04                       focal             20240821         Ubuntu 20.04 LTS
+22.04                       jammy             20240821         Ubuntu 22.04 LTS
+24.04                       noble,lts         20240821         Ubuntu 24.04 LTS
+appliance:adguard-home                        20200812         Ubuntu AdGuard Home Appliance
+appliance:mosquitto                           20200812         Ubuntu Mosquitto Appliance
+appliance:nextcloud                           20200812         Ubuntu Nextcloud Appliance
+appliance:openhab                             20200812         Ubuntu openHAB Home Appliance
+appliance:plexmediaserver                     20200812         Ubuntu Plex Media Server Appliance
+
+Blueprint                   Aliases           Version          Description
+anbox-cloud-appliance                         latest           Anbox Cloud Appliance
+charm-dev                                     latest           A development and testing environment for charmers
+docker                                        0.4              A Docker environment with Portainer and related tools
+jellyfin                                      latest           Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media.
+minikube                                      latest           minikube is local Kubernetes
+ros-noetic                                    0.1              A development and testing environment for ROS Noetic.
+ros2-humble                                   0.1              A development and testing environment for ROS 2 Humble.
+Launched: affirming-newfoundland
+
+C:\Windows\system32>multipass list
+Name                     State             IPv4             Image
+affirming-newfoundland   Running           172.31.177.13    Ubuntu 22.04 LTS
+foo                      Running           N/A              Ubuntu 24.04 LTS
+
+C:\Windows\system32>multipass info foo
+info failed: ssh connection failed: 'Timeout connecting to foo.mshome.net'
+
+C:\Windows\system32>multipass start affirming-newfoundland
+
+C:\Windows\system32>multipass start affirming-newfoundland
+
+C:\Windows\system32>multipass start foo
+
+C:\Windows\system32>multipass info --all
+Warning: the `--all` flag for the `info` command is deprecated. Please use `info` with no positional arguments for the same effect.
+^C
+C:\Windows\system32>
+C:\Windows\system32>multipass info --all
+Warning: the `--all` flag for the `info` command is deprecated. Please use `info` with no positional arguments for the same effect.
+^C
+C:\Windows\system32>
+C:\Windows\system32>multipass info
+info failed: ssh connection failed: 'Timeout connecting to foo.mshome.net'
+
+C:\Windows\system32>multipass list
+Name                     State             IPv4             Image
+affirming-newfoundland   Running           172.31.177.13    Ubuntu 22.04 LTS
+foo                      Running           N/A              Ubuntu 24.04 LTS
+
+C:\Windows\system32>

@@ -1535,7 +1535,7 @@ Para cambiar la configuración del teclado en console, a inglés de Estados Unid
 Comando system-config-keyboard.
 Esta herramienta no existe en versiones más recientes de estas distribuciones.
 
-![Keyboard Selection](./Modulo04-Clase05/imgs/img01-BasadasEnRedHat.png)
+![Keyboard Selection](./Modulo04-Clase05y06/imgs/img01-BasadasEnRedHat.png)
 
 
 ###### Comando `loadkeys`
@@ -1562,7 +1562,7 @@ Actualmente el **archivo de locales global** es `/etc/locale.conf`. Sin embargo 
 
 ###### Comando `system-config-language`
 Para elegir el idioma del sistema
-![system-config-language](/Modulo04-Clase05/imgs/img02-BasadasEnRedHat.png)
+![system-config-language](/Modulo04-Clase05y06/imgs/img02-BasadasEnRedHat.png)
 
 
 ##### Basadas en Debian 
@@ -1577,10 +1577,10 @@ En algunas versiones más viejas de Debian:
 
     # dpkg-reconfigure console-data 
 
-![dpkg-reconfigure 1](./Modulo04-Clase05/imgs/img03-BasadasEnDebian.png)
+![dpkg-reconfigure 1](./Modulo04-Clase05y06/imgs/img03-BasadasEnDebian.png)
 
 
-![dpkg-reconfigure 2](./Modulo04-Clase05/imgs/img04-BasadasEnDebian.png)
+![dpkg-reconfigure 2](./Modulo04-Clase05y06/imgs/img04-BasadasEnDebian.png)
 
 Tendremos que seleccionar las opciones que correspondan.
 
@@ -1601,7 +1601,7 @@ Archivo de configuración general de idioma.
 
 Veamos su salida:
 
-![dpkg-reconfigure locales](./Modulo04-Clase05/imgs/img05-BasadasEnDebian.png)
+![dpkg-reconfigure locales](./Modulo04-Clase05y06/imgs/img05-BasadasEnDebian.png)
 
 
 ###### Comando `locale-gen`
@@ -1647,7 +1647,7 @@ La mayoría de estos paquetes se bajan desde sitios como *GitHub*, *GitLab*, o d
 
 Este proceso consta de los siguientes pasos:
 
-![pasos compilacion Autotools](/Modulo04-Clase05/imgs/img06-CompilarConAutotools.png)
+![pasos compilacion Autotools](/Modulo04-Clase05y06/imgs/img06-CompilarConAutotools.png)
 
 Ejemplo de paquete con Autools: Descarga del paquete
 
@@ -1982,7 +1982,7 @@ La alternativa es tener una estructura de micronúcleo, donde las partes funcion
 
 Diagrama del núcleo:
 
-![Arquitectura de linux](./Modulo04-Clase05/imgs/img07-ArquitecturaLinux.png)
+![Arquitectura de linux](./Modulo04-Clase05y06/imgs/img07-ArquitecturaLinux.png)
 
 Actualmente Linux es un núcleo monolítico híbrido. Los controladores de dispositivos y las extensiones del núcleo normalmente se ejecutan en un espacio privilegiado conocido como anillo 0 con acceso irrestricto al hardware, aunque algunos se ejecutan en espacio de usuario.
 A diferencia de los núcleos monolíticos tradicionales, los controladores de dispositivos y las extensiones al núcleo se pueden cargar y descargar fácilmente como módulos, mientras el sistema continúa funcionando sin interrupciones. 
@@ -2058,7 +2058,7 @@ Ahora vamos a personalizar nuestro kernel, para eso, deberíamos ejecutar el sig
 
 Allí veremos una interfaz con menús, como la que se muestra en la siguiente pantalla.
 
-![Linux Kernel Configuration](./Modulo04-Clase05/imgs/img08-LinuxKernelConfiguration.png)
+![Linux Kernel Configuration](./Modulo04-Clase05y06/imgs/img08-LinuxKernelConfiguration.png)
 Podemos navegar a través de esta interfaz con las flechas del teclado y con la tecla **TAB**. Podemos salir con **Esc** o elegir alguna de las opciones principales situadas debajo con la tecla **Enter**.
 
 La siguiente tabla muestra los tipos de funcionalidades que podemos encontrar:
