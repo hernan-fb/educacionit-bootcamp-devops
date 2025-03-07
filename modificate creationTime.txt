@@ -1,0 +1,18 @@
+powershell -command "(Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\20241203_DevOps_Desafio#02.md').CreationTime = '3 December 2024 18:05:12'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\20241203_DevOps_Desafio#02.md').LastWriteTime = '3 December 2024 23:15:43'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\20241203_DevOps_Desafio#02.md').LastAccessTime = '3 December 2024 23:25:30'"
+
+powershell -command "(Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\20241203_DevOps_Desafio#02.pdf').CreationTime = '3 December 2024 23:32:43'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\20241203_DevOps_Desafio#02.pdf').LastWriteTime = '3 December 2024 23:32:44'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\20241203_DevOps_Desafio#02.pdf').LastAccessTime = '3 December 2024 23:32:44'"
+
+powershell -command "(Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\pruebaDeEjecucionAutomaticaSatisfactoria.gif').CreationTime = '3 December 2024 22:08:20'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\pruebaDeEjecucionAutomaticaSatisfactoria.gif').LastWriteTime = '3 December 2024 22:08:20'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\pruebaDeEjecucionAutomaticaSatisfactoria.gif').LastAccessTime = '3 December 2024 22:08:20'"
+
+
+powershell -command "(Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\guia_utilizacion_job_CI.md').CreationTime = '3 December 2024 21:11:45'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\guia_utilizacion_job_CI.md').LastWriteTime = '3 December 2024 23:21:10'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\guia_utilizacion_job_CI.md').LastAccessTime = '3 December 2024 23:31:55'"
+
+powershell -command "(Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\guia_utilizacion_job_CI.pdf').CreationTime = '3 December 2024 23:05:22'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\guia_utilizacion_job_CI.pdf').LastWriteTime = '3 December 2024 23:05:22'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\guia_utilizacion_job_CI.pdf').LastAccessTime = '3 December 2024 23:05:22'"
+
+powershell -command "(Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\jenkinsFile_CI_for_nodejs').CreationTime = '3 December 2024 23:00:05'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\jenkinsFile_CI_for_nodejs').LastWriteTime = '3 December 2024 23:10:15'; (Get-Item 'C:\Users\hbrando\Documents\MisProyectos\educacionIT-Bootcamp_devOps\desafios\desafio02\entregables\jenkinsFile_CI_for_nodejs').LastAccessTime = '3 December 2024 23:20:12'"
+
+
+
+
+
+
